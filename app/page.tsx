@@ -3,34 +3,35 @@ export default function Home() {
     <main style={{ fontFamily: "'Outfit', sans-serif", backgroundColor: '#ffffff', color: '#0A0A0A', margin: 0 }}>
 
       {/* NAV */}
-      <nav style={{ padding: '0 32px', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
-        <span style={{ fontSize: '22px', fontWeight: '800', color: '#0F2A45' }}>Lern²</span>
+      <nav style={{ padding: '0 32px', height: '72px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
+        <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <a href="https://wa.me/4915679576256" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>WhatsApp</a>
           <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 18px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>Kostenlos anfragen</a>
         </div>
       </nav>
 
-      {/* HERO */}
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', minHeight: '560px', overflow: 'hidden' }}>
-        <div style={{ padding: '72px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#fff' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: '#F0F7FF', border: '1px solid #C8DFF5', borderRadius: '20px', padding: '6px 16px', marginBottom: '28px', width: 'fit-content' }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0F2A45', display: 'inline-block' }}></span>
-            <span style={{ fontSize: '13px', color: '#0F2A45', fontWeight: '500' }}>Professionelle Nachhilfe in Kassel</span>
+      {/* HERO MIT HINTERGRUNDBILD */}
+      <section style={{ position: 'relative', minHeight: '600px', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <img src="/full.png" alt="Hintergrund" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(15,42,69,0.75)' }}></div>
+        </div>
+        <div style={{ position: 'relative', zIndex: 1, padding: '80px 48px', maxWidth: '700px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: '20px', padding: '6px 16px', marginBottom: '28px', width: 'fit-content' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#FFD60A', display: 'inline-block' }}></span>
+            <span style={{ fontSize: '13px', color: '#fff', fontWeight: '500' }}>Professionelle Nachhilfe in Kassel</span>
           </div>
-          <h1 style={{ fontSize: 'clamp(28px, 4vw, 56px)', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-2px', color: '#0F2A45', marginBottom: '20px' }}>
+          <h1 style={{ fontSize: 'clamp(32px, 5vw, 62px)', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-2px', color: '#fff', marginBottom: '20px' }}>
             Wir helfen Ihrem Kind,<br />bessere Noten<br /><span style={{ color: '#FFD60A' }}>zu erreichen.</span>
           </h1>
-          <p style={{ fontSize: '17px', color: '#556678', lineHeight: '1.7', marginBottom: '36px', maxWidth: '420px' }}>
+          <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.8)', lineHeight: '1.7', marginBottom: '36px', maxWidth: '500px' }}>
             Individuelle Nachhilfe und Sprachförderung in Kassel — persönlich, strukturiert und für viele Familien vollständig kostenlos.
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
-            <a href="https://wa.me/4915679576256" style={{ backgroundColor: '#F0F4F8', color: '#0F2A45', padding: '14px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
+            <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '16px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '16px' }}>Jetzt KOSTENLOS anfragen</a>
+            <a href="https://wa.me/4915679576256" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff', border: '1px solid rgba(255,255,255,0.4)', padding: '16px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '16px' }}>WhatsApp</a>
           </div>
-        </div>
-        <div style={{ overflow: 'hidden', minHeight: '320px' }}>
-          <img src="/full.png" alt="Lern² Nachhilfe" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         </div>
       </section>
 
@@ -86,7 +87,7 @@ export default function Home() {
           Seit vielen Jahren begleiten wir Kinder und Jugendliche mit und ohne Migrationshintergrund dabei, ihr volles Potenzial zu entfalten. Mit individueller Nachhilfe und Sprachförderung stärken wir Wissen, Selbstvertrauen und die Basis für eine erfolgreiche Zukunft.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '40px' }}>
-          {['Mathematik', 'Physik', 'Chemie', 'Biologie', 'Arabisch', 'Deutsch', 'Englisch', 'Französisch'].map(f => (
+          {['Mathematik', 'Deutsch', 'Englisch', 'Physik', 'Chemie', 'Biologie', 'Arabisch', 'Französisch'].map(f => (
             <span key={f} style={{ backgroundColor: '#F0F4F8', color: '#334455', padding: '6px 14px', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}>{f}</span>
           ))}
           <span style={{ backgroundColor: '#FFFBEA', color: '#7A6500', border: '1px solid #FFE566', padding: '6px 14px', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}>Für alle Klassenstufen, auch für Geflüchtete</span>
@@ -117,24 +118,29 @@ export default function Home() {
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center' }}>Ablauf</p>
           <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '12px', textAlign: 'center', color: '#0F2A45' }}>Schritt für Schritt zur besseren Note</h2>
-          <p style={{ fontSize: '16px', color: '#556678', textAlign: 'center', marginBottom: '48px', maxWidth: '600px', margin: '0 auto 48px' }}>
+          <p style={{ fontSize: '16px', color: '#556678', textAlign: 'center', maxWidth: '600px', margin: '0 auto 56px' }}>
             Ihr Kind steht bei uns im Mittelpunkt — vom ersten Kennenlernen bis zum gemeinsamen Erfolg.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0', position: 'relative', flexWrap: 'wrap' }}>
             {[
               { n: '1', icon: '👥', t: 'Kennenlernen & Analyse', d: 'Wir starten mit einem persönlichen Gespräch und einer gründlichen Analyse, um den Lernstand und die Bedürfnisse Ihres Kindes genau zu verstehen.' },
               { n: '2', icon: '📅', t: 'Individueller Lernplan', d: 'Auf Basis der Analyse erstellen wir einen maßgeschneiderten Lernplan, der gezielt Stärken fördert und Schwächen Schritt für Schritt abbaut.' },
               { n: '3', icon: '🎓', t: 'Begleitung & Erfolgskontrolle', d: 'Wir begleiten Ihr Kind kontinuierlich, passen den Plan bei Bedarf an und halten Sie regelmäßig über die Fortschritte auf dem Laufenden.' },
-            ].map(s => (
-              <div key={s.n} style={{ backgroundColor: '#fff', border: '1px solid #E8EDF2', borderRadius: '12px', padding: '28px' }}>
-                <div style={{ fontSize: '28px', marginBottom: '12px' }}>{s.icon}</div>
-                <div style={{ width: '32px', height: '32px', backgroundColor: '#FFD60A', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '15px', marginBottom: '16px', color: '#0F2A45' }}>{s.n}</div>
-                <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '10px', color: '#0F2A45' }}>{s.t}</h3>
-                <p style={{ fontSize: '14px', color: '#556678', lineHeight: '1.7' }}>{s.d}</p>
+            ].map((s, i) => (
+              <div key={s.n} style={{ flex: '1', minWidth: '240px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+                {i < 2 && (
+                  <div style={{ position: 'absolute', top: '24px', left: '60%', right: '-10%', height: '2px', backgroundColor: '#FFD60A', zIndex: 0 }}></div>
+                )}
+                <div style={{ backgroundColor: '#fff', border: '2px solid #E8EDF2', borderRadius: '12px', padding: '28px', width: '100%', position: 'relative', zIndex: 1 }}>
+                  <div style={{ fontSize: '28px', marginBottom: '12px' }}>{s.icon}</div>
+                  <div style={{ width: '36px', height: '36px', backgroundColor: '#FFD60A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px', marginBottom: '16px', color: '#0F2A45' }}>{s.n}</div>
+                  <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '10px', color: '#0F2A45' }}>{s.t}</h3>
+                  <p style={{ fontSize: '14px', color: '#556678', lineHeight: '1.7' }}>{s.d}</p>
+                </div>
               </div>
             ))}
           </div>
-          <div style={{ textAlign: 'center', marginTop: '40px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div style={{ textAlign: 'center', marginTop: '48px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS beraten lassen</a>
             <a href="https://wa.me/4915679576256" style={{ backgroundColor: '#F0F4F8', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
           </div>
@@ -150,17 +156,17 @@ export default function Home() {
             {[
               {
                 t: 'Basis', sub: 'Der solide Einstieg.',
-                punkte: ['1x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Hausaufgabenbetreuung'],
+                punkte: ['1x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Hausaufgabenbetreuung', 'Lernfortschritt wird dokumentiert'],
                 highlight: false
               },
               {
                 t: 'Standard', sub: 'Empfohlen für die meisten Familien.',
-                punkte: ['2x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Individuelles Lerntempo', 'Regelmäßige Eltern-Feedbacks', 'Fortschrittsanalyse monatlich', 'Prüfungsvorbereitung inklusive'],
+                punkte: ['2x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Individuelles Lerntempo', 'Regelmäßige Eltern-Feedbacks', 'Fortschrittsanalyse monatlich', 'Prüfungsvorbereitung inklusive', 'Lückenanalyse & gezieltes Üben'],
                 highlight: true
               },
               {
                 t: 'Premium Excellence', sub: 'Das Rundum-Sorglos-Paket.',
-                punkte: ['Exklusive 1-zu-1 Betreuung', 'WhatsApp-Support Mo–Sa', 'Proaktive Erfolgs-Reports'],
+                punkte: ['Exklusive 1-zu-1 Betreuung', 'WhatsApp-Support Mo–Sa', 'Proaktive Erfolgs-Reports', 'Flexible Terminplanung'],
                 highlight: false
               },
             ].map(p => (
@@ -211,9 +217,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BANNER */}
-      <section style={{ backgroundColor: '#0F2A45', padding: '72px 32px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+      {/* BANNER MIT HINTERGRUNDBILD */}
+      <section style={{ position: 'relative', padding: '80px 32px', textAlign: 'center', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <img src="/st2.jpg" alt="Hintergrund" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+          <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(15,42,69,0.82)' }}></div>
+        </div>
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: '800', color: '#fff', marginBottom: '16px', lineHeight: '1.3' }}>
             Gemeinsam bauen wir neues Selbstvertrauen auf und schließen Wissenslücken nachhaltig.
           </h2>
@@ -231,9 +241,9 @@ export default function Home() {
 
       {/* PARTNER */}
       <section style={{ padding: '48px 32px', textAlign: 'center', borderBottom: '1px solid #E8EDF2' }}>
-        <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px' }}>Unser Partner, der uns vertraut</p>
-        <a href="https://klarooai.com/de" target="_blank" style={{ textDecoration: 'none' }}>
-          <span style={{ fontSize: '20px', fontWeight: '800', color: '#0F2A45' }}>KlarOo <span style={{ color: '#FFD60A' }}>AI</span></span>
+        <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '24px' }}>Unser Partner, der uns vertraut</p>
+        <a href="https://klarooai.com/de" target="_blank" style={{ textDecoration: 'none', display: 'inline-block' }}>
+          <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '48px', objectFit: 'contain' }} />
         </a>
       </section>
 
@@ -259,7 +269,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer style={{ backgroundColor: '#FFD60A', padding: '48px 32px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: '32px', fontWeight: '800', color: '#0F2A45', marginBottom: '16px' }}>Lern²</div>
+          <img src="/logo.png" alt="Lern²" style={{ height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover', marginBottom: '16px' }} />
           <p style={{ fontSize: '14px', color: '#0F2A45', marginBottom: '20px', opacity: 0.7 }}>© 2026 Lern² · Kassel · Alle Rechte vorbehalten</p>
           <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
             <a href="https://wa.me/4915679576256" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>WhatsApp</a>
