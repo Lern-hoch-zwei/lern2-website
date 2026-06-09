@@ -220,7 +220,7 @@ export default function Home() {
       {/* BANNER */}
       <section style={{ position: 'relative', padding: '80px 32px', textAlign: 'center', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <img src="/st2.jpg" alt="Hintergrund" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+          <img src="/st2.jpg" alt="Hintergrund" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} />
           <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(15,42,69,0.82)' }}></div>
         </div>
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
