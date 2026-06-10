@@ -3,9 +3,9 @@ import { useState } from "react";
 
 const langs = [
   { code: 'de', label: 'Deutsch', flag: 'de', href: '/' },
-  { code: 'ع', label: 'العربية', flag: 'sy', href: '/ar' },
+  { code: 'ar', label: 'العربية', flag: 'sy', href: '/ع' },
   { code: 'tr', label: 'Türkçe', flag: 'tr', href: '/tr' },
-  { code: 'ف', label: 'داری', flag: 'af', href: '/fa' },
+  { code: 'fa', label: 'داری', flag: 'af', href: '/ف' },
 ];
 
 export default function LanguageDropdown({ current }: { current: string }) {
