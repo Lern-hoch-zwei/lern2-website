@@ -45,8 +45,9 @@ export default function HomeTr() {
           .section-pad { padding: 52px 20px !important; }
           .grid-2 { grid-template-columns: 1fr !important; }
           .timeline-line { display: none !important; }
-          .timeline-card { width: 90% !important; margin: 0 auto 32px !important; justify-content: center !important; }
-          .timeline-num { left: calc(5% + 20px) !important; }
+          .timeline-card { width: 100% !important; margin: 0 auto 36px !important; justify-content: center !important; }
+          .timeline-inner { width: 100% !important; padding-top: 40px !important; text-align: center !important; }
+          .timeline-num { left: 50% !important; top: -20px !important; }
           .pakete-grid { grid-template-columns: 1fr !important; }
           .initiative-inner { flex-direction: column !important; padding: 28px 20px !important; }
           .footer-links { gap: 12px !important; }
@@ -185,7 +186,7 @@ export default function HomeTr() {
             ].map((s, i) => (
               <div key={i} className="timeline-card" style={{ display: 'flex', justifyContent: s.side === 'right' ? 'flex-end' : 'flex-start', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
                 <div className="timeline-num" style={{ position: 'absolute', left: '50%', top: '20px', transform: 'translateX(-50%)', width: '40px', height: '40px', backgroundColor: '#FFD60A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px', color: '#0F2A45', border: '3px solid #fff', zIndex: 2 }}>{s.n}</div>
-                <div style={{ width: '44%', backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '14px', padding: '24px', boxShadow: '0 4px 16px rgba(58,134,255,0.08)' }}>
+                <div className="timeline-inner" style={{ width: '44%', backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '14px', padding: '24px', boxShadow: '0 4px 16px rgba(58,134,255,0.08)' }}>
                   <div style={{ fontSize: '28px', marginBottom: '10px' }}>{s.icon}</div>
                   <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '8px', color: '#0F2A45' }}>{s.t}</h3>
                   <p style={{ fontSize: '14px', color: '#556678', lineHeight: '1.7', margin: 0 }}>{s.d}</p>
