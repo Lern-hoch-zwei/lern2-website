@@ -5,8 +5,15 @@ const langs = [
   { code: 'de', label: 'Deutsch', flag: 'de', href: '/' },
   { code: 'ar', label: 'العربية', flag: 'sy', href: '/ar' },
   { code: 'tr', label: 'Türkçe', flag: 'tr', href: '/tr' },
-  { code: 'fa', label: 'داری', flag: 'af', href: '/fa' },
+  { code: 'fa', label: 'دری', flag: 'af', href: '/fa' },
 ];
+
+const getLabel = (code: string) => {
+  if (code === 'ar') return 'ع';
+  if (code === 'fa') return 'ف';
+  if (code === 'tr') return 'TR';
+  return 'DE';
+};
 
 export default function LanguageDropdown({ current }: { current: string }) {
   const [open, setOpen] = useState(false);
@@ -18,7 +25,7 @@ export default function LanguageDropdown({ current }: { current: string }) {
         onClick={() => setOpen(!open)}
         style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#F0F4F8', border: 'none', borderRadius: '8px', padding: '7px 12px', cursor: 'pointer', fontSize: '13px', fontWeight: '600', color: '#0F2A45' }}>
         <img src={`https://flagcdn.com/w20/${active.flag}.png`} width="18" alt={active.code} style={{ borderRadius: '2px' }} />
-        <span>{active.code.toUpperCase()}</span>
+        <span>{getLabel(active.code)}</span>
         <span style={{ fontSize: '10px', color: '#8A9BAE' }}>▾</span>
       </button>
       {open && (
@@ -34,4 +41,3 @@ export default function LanguageDropdown({ current }: { current: string }) {
     </div>
   );
 }
-
