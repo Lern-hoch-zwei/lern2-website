@@ -360,7 +360,7 @@ export default function Home() {
       {/* PARTNER */}
       
 <section style={{ padding: '44px 24px', borderBottom: '1px solid #E8EDF2', textAlign: 'center' }}>
-  <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px' }}>Unser Partner, der uns vertraut</p>
+  <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px', fontWeight: '600'  }}>Unser Partner, der uns vertraut</p>
   <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'block', width: 'fit-content', margin: '0 auto' }}>
     <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '52px', objectFit: 'contain', display: 'block' }} />
   </a>
