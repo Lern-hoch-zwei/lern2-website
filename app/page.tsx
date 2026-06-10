@@ -39,7 +39,7 @@ export default function Home() {
           .hero-h1 { font-size: 32px !important; letter-spacing: -1px !important; }
           .hero-p { font-size: 15px !important; }
           .stats-bar { padding: 20px 12px !important; }
-          .stats-item { min-width: 80px !important; padding: 8px 10px !important; }
+          .stats-item { flex: 1 1 45% !important; min-width: 0 !important; padding: 10px 8px !important; border-right: none !important; }
           .stats-n { font-size: 18px !important; }
           .stats-l { font-size: 10px !important; }
           .section-pad { padding: 52px 20px !important; }
