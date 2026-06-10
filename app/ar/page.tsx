@@ -14,33 +14,17 @@ const msgs = {
   general: `السلام عليكم فريق Lern²،\nأريد الاستفسار عن خدمات Lern².\n\nAsSalamu aleikum Lern²-Team,\nich möchte mehr über Lern² erfahren.`,
 };
 
-const SyrianFlag = () => (
-  <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ borderRadius: '2px' }}>
-    <rect width="20" height="14" fill="white"/>
-    <rect width="20" height="4.67" fill="#007A3D"/>
-    <rect y="9.33" width="20" height="4.67" fill="#000000"/>
-    <circle cx="7" cy="7" r="1" fill="#CE1126"/>
-    <circle cx="10" cy="7" r="1" fill="#CE1126"/>
-    <circle cx="13" cy="7" r="1" fill="#CE1126"/>
-  </svg>
-);
-
 export default function HomeAr() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <main dir="rtl" style={{ fontFamily: "'Inter', sans-serif", backgroundColor: '#ffffff', color: '#0A0A0A', margin: 0 }}>
 
-     {/* NAV */}
-<nav style={{ padding: '0 32px', height: '72px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
-  <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
-  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-    <LanguageDropdown current="ar" />
-    <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>واتساب</a>
-    <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 18px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>استفسر مجاناً</a>
-  </div>
-</nav>
-
+      {/* NAV */}
+      <nav style={{ padding: '0 32px', height: '72px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
+        <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <LanguageDropdown current="ar" />
           <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>واتساب</a>
           <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 18px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>استفسر مجاناً</a>
         </div>
@@ -259,7 +243,7 @@ export default function HomeAr() {
             <div style={{ display: 'inline-block', backgroundColor: '#EEF4FF', color: '#3A86FF', fontSize: '11px', fontWeight: '700', padding: '4px 12px', borderRadius: '20px', marginBottom: '16px', border: '1px solid #D6E4FF' }}>مبادرة Lern²</div>
             <h2 style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: '800', marginBottom: '16px', color: '#0F2A45' }}>تكافؤ الفرص من خلال التعليم</h2>
             <p style={{ fontSize: '15px', color: '#556678', lineHeight: '1.8' }}>
-              نؤمن بأن كل طفل يستحق أفضل رعاية تعليمية بغض النظر عن دخل الأسرة. نتحقق مما إذا كان طفلكم مؤهلاً للحصول على <strong>دعم التعليم والمشاركة (BuT)</strong>. هل تتلقون <strong>Wohngeld أو Bürgergeld أو Kinderzuschuss</strong>؟ إذن الدروس الخصوصية <strong>مجانية 100%</strong> لكم.
+              نؤمن بأن كل طفل يستحق أفضل رعاية تعليمية. هل تتلقون <strong>Wohngeld أو Bürgergeld أو Kinderzuschuss</strong>؟ إذن الدروس الخصوصية <strong>مجانية 100%</strong> لكم عبر BuT.
             </p>
           </div>
           <a href={waLink(msgs.but)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px', whiteSpace: 'nowrap' }}>تحقق من أهليتك مجاناً</a>
@@ -269,7 +253,7 @@ export default function HomeAr() {
       {/* PARTNER */}
       <section style={{ padding: '48px 32px', textAlign: 'center', borderBottom: '1px solid #E8EDF2' }}>
         <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '24px' }}>شريكنا الذي يثق بنا</p>
-        <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'inline-block' }}>
+        <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer">
           <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '56px', objectFit: 'contain' }} />
         </a>
       </section>
@@ -280,12 +264,12 @@ export default function HomeAr() {
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>الأسئلة الشائعة</p>
           <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: '800', marginBottom: '48px', textAlign: 'center', color: '#0F2A45' }}>أسئلة يطرحها أهالينا كثيراً</h2>
           {[
-            { f: 'كم عدد حصص الدروس الخصوصية الأسبوعية المناسبة؟', a: 'نوصي عادةً بـ 1-2 مواعيد أسبوعياً حسب المستوى الحالي والهدف. قبل الاختبارات المهمة يمكن تكثيف الدروس مؤقتاً.' },
+            { f: 'كم عدد حصص الدروس الخصوصية الأسبوعية المناسبة؟', a: 'نوصي عادةً بـ 1-2 مواعيد أسبوعياً. قبل الاختبارات المهمة يمكن تكثيف الدروس مؤقتاً.' },
             { f: 'ما المواد والمراحل الدراسية التي تغطيها دروسكم؟', a: 'نقدم دروساً في جميع المواد من الابتدائية حتى الثانوية — الرياضيات، اللغات، العلوم وغيرها.' },
             { f: 'هل يمكنني الإلغاء شهرياً؟', a: 'نعم — لا ارتباط طويل الأمد. حصص فردية أو منتظمة، كيفما يناسبكم.' },
             { f: 'من يدرّس في Lern²؟', a: 'معلمون متحمسون وطلاب جامعيون وخريجون بدرجات ممتازة — يعملون بصبر وتحفيز.' },
           ].map((q, i) => (
-            <div key={i} style={{ borderBottom: '1px solid #D6E4FF', overflow: 'hidden', backgroundColor: openFaq === i ? '#fff' : 'transparent', borderRadius: openFaq === i ? '8px' : '0', marginBottom: openFaq === i ? '8px' : '0' }}>
+            <div key={i} style={{ borderBottom: '1px solid #D6E4FF', backgroundColor: openFaq === i ? '#fff' : 'transparent', borderRadius: openFaq === i ? '8px' : '0', marginBottom: openFaq === i ? '8px' : '0' }}>
               <button onClick={() => setOpenFaq(openFaq === i ? null : i)} style={{ width: '100%', textAlign: 'right', padding: '20px 16px', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
                 <span style={{ fontSize: '16px', fontWeight: '700', color: '#0F2A45' }}>{q.f}</span>
                 <span style={{ fontSize: '20px', color: '#FFD60A', flexShrink: 0, display: 'inline-block', transform: openFaq === i ? 'rotate(45deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>+</span>
