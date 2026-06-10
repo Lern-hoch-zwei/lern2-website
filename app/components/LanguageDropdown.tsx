@@ -4,8 +4,9 @@ import { useState } from "react";
 const langs = [
   { code: 'de', label: 'Deutsch', flag: 'de', href: '/' },
   { code: 'ar', label: 'العربية', flag: 'sy', href: '/ar' },
-  { code: 'tr', label: 'Türkçe', flag: 'tr', href: '/tr' },
   { code: 'fa', label: 'دری', flag: 'af', href: '/fa' },
+  { code: 'tr', label: 'Türkçe', flag: 'tr', href: '/tr' },
+  
 ];
 
 const getLabel = (code: string) => {
