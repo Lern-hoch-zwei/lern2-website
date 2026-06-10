@@ -24,10 +24,10 @@ export default function Home() {
         <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '4px', backgroundColor: '#F0F4F8', borderRadius: '8px', padding: '4px' }}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '6px', backgroundColor: '#fff', fontSize: '13px', fontWeight: '600', color: '#0F2A45', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+  <div style={{ padding: '4px 10px', borderRadius: '6px', backgroundColor: '#fff', fontSize: '13px', fontWeight: '600', color: '#0F2A45', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
     🇩🇪 DE
   </div>
-  <a href="/ar" style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '13px', fontWeight: '600', color: '#556678' }}>
+  <a href="/ar" style={{ padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '13px', fontWeight: '600', color: '#556678' }}>
     🇸🇾 AR
   </a>
 </div>
