@@ -1,4 +1,5 @@
 "use client";
+import LanguageDropdown from "../components/LanguageDropdown";
 import { useState } from "react";
 
 const waLink = (msg: string) =>
@@ -34,13 +35,7 @@ export default function HomeAr() {
       <nav style={{ padding: '0 32px', height: '72px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
         <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          {/* Language Switcher */}
-          <div style={{ display: 'flex', gap: '4px', backgroundColor: '#F0F4F8', borderRadius: '8px', padding: '4px' }}>
-  <a href="/" style={{ padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '13px', fontWeight: '600', color: '#556678', display: 'flex', alignItems: 'center', gap: '5px' }}>
-    <img src="https://flagcdn.com/w20/de.png" width="20" alt="DE" style={{ borderRadius: '2px' }} />
-  </a>
-  <div style={{ padding: '4px 10px', borderRadius: '6px', backgroundColor: '#fff', fontSize: '13px', fontWeight: '700', color: '#0F2A45', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', display: 'flex', alignItems: 'center', gap: '5px' }}>
-    <img src="https://flagcdn.com/w20/sy.png" width="20" alt="AR" style={{ borderRadius: '2px' }} /> AR
+          <LanguageDropdown current="ar" />
   </div>
 </div>
           <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>واتساب</a>
