@@ -102,7 +102,7 @@ export default function Home() {
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
             { n: '100%', l: 'kostenlos über BuT' },
-            { n: '5 ★', l: '10+ Google Bewertungen' },
+            { n: '5 ★', l: '10 Google Bewertungen' },
             { n: 'Alle', l: 'Fächer & Klassen' },
             { n: '24h', l: 'Antwortzeit' },
           ].map((s, i) => (
@@ -237,7 +237,7 @@ export default function Home() {
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Bewertungen</p>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '8px', textAlign: 'center', color: '#0F2A45' }}>Das sagen unsere Familien</h2>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-            <a href="https://www.google.com/maps/place/Lern%C2%B2" target="_blank" style={{ fontSize: '14px', color: '#556678', textDecoration: 'none' }}>⭐ 5 von 5 Sternen · 10+ Bewertungen auf Google</a>
+            <a href="https://www.google.com/maps/place/Lern%C2%B2" target="_blank" style={{ fontSize: '14px', color: '#556678', textDecoration: 'none' }}>⭐ 5 von 5 Sternen · 10 Bewertungen auf Google</a>
           </div>
           <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
             {[
@@ -358,12 +358,13 @@ export default function Home() {
       </section>
 
       {/* PARTNER */}
-      <section style={{ padding: '44px 24px', textAlign: 'center', borderBottom: '1px solid #E8EDF2' }}>
-        <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px' }}>Unser Partner, der uns vertraut</p>
-        <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer">
-          <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '52px', objectFit: 'contain' }} />
-        </a>
-      </section>
+      {/* PARTNER */}
+<section style={{ padding: '44px 24px', borderBottom: '1px solid #E8EDF2', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+  <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px' }}>Unser Partner, der uns vertraut</p>
+  <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex' }}>
+    <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '52px', objectFit: 'contain', display: 'block' }} />
+  </a>
+</section>
 
       {/* FAQ */}
       <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', padding: '72px 24px' }}>
@@ -393,7 +394,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer style={{ backgroundColor: '#FFD60A', padding: '44px 24px' }}>
-        <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+       <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <img src="/logo.png" alt="Lern²" style={{ height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover', marginBottom: '16px' }} />
           <p style={{ fontSize: '13px', color: '#0F2A45', marginBottom: '16px', opacity: 0.7 }}>© 2026 Lern² · Kassel · Alle Rechte vorbehalten</p>
           <div className="footer-links" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '14px' }}>
