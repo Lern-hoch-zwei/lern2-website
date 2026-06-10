@@ -23,6 +23,14 @@ export default function Home() {
       <nav style={{ padding: '0 32px', height: '72px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
         <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '4px', backgroundColor: '#F0F4F8', borderRadius: '8px', padding: '4px' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '6px', backgroundColor: '#fff', fontSize: '13px', fontWeight: '600', color: '#0F2A45', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+    🇩🇪 DE
+  </div>
+  <a href="/ar" style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '13px', fontWeight: '600', color: '#556678' }}>
+    🇸🇾 AR
+  </a>
+</div>
           <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>WhatsApp</a>
           <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 18px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>Kostenlos anfragen</a>
         </div>
