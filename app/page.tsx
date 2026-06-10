@@ -24,11 +24,11 @@ export default function Home() {
         <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '4px', backgroundColor: '#F0F4F8', borderRadius: '8px', padding: '4px' }}>
-  <div style={{ padding: '4px 10px', borderRadius: '6px', backgroundColor: '#fff', fontSize: '13px', fontWeight: '600', color: '#0F2A45', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-    🇩🇪 DE
+  <div style={{ padding: '4px 10px', borderRadius: '6px', backgroundColor: '#fff', fontSize: '13px', fontWeight: '700', color: '#0F2A45', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+    DE
   </div>
   <a href="/ar" style={{ padding: '4px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '13px', fontWeight: '600', color: '#556678' }}>
-    🇸🇾 AR
+    AR
   </a>
 </div>
           <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>WhatsApp</a>
