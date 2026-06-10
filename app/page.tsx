@@ -3,7 +3,7 @@ import { useState } from "react";
 import LanguageDropdown from "./components/LanguageDropdown";
 
 const WA = "4915679576256";
-const IG = "https://www.instagram.com/lern_hoch_2";
+const IG = "https://www.instagram.com/lern_hoch_zwei";
 const FB = "https://www.facebook.com/share/1EHvQ67ZQ8/";
 
 const waLink = (msg: string) =>
@@ -65,7 +65,7 @@ export default function Home() {
 
       {/* NAV */}
       <nav className="nav-inner" style={{ padding: '0 32px', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
-        <img src="/logo.png" alt="Lern²" style={{ height: '42px', width: '42px', borderRadius: '8px', objectFit: 'cover' }} />
+        <img src="/logo.png" alt="Lern²" style={{ height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover', marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <LanguageDropdown current="de" />
           <a className="nav-wa" href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 10px' }}>WhatsApp</a>
