@@ -365,7 +365,7 @@ export default function Home() {
 
 </h2>
   <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'block', width: 'fit-content', margin: '0 auto' }}>
-    <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '64px', objectFit: 'contain', display: 'block' }} />
+    <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '72px', objectFit: 'contain', display: 'block' }} />
   </a>
 </section>
 
