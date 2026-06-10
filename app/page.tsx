@@ -358,10 +358,10 @@ export default function Home() {
       </section>
 
       {/* PARTNER */}
-      {/* PARTNER */}
-<section style={{ padding: '44px 24px', borderBottom: '1px solid #E8EDF2', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+      
+<section style={{ padding: '44px 24px', borderBottom: '1px solid #E8EDF2', textAlign: 'center' }}>
   <p style={{ fontSize: '12px', color: '#8A9BAE', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px' }}>Unser Partner, der uns vertraut</p>
-  <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex' }}>
+  <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'block', width: 'fit-content', margin: '0 auto' }}>
     <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '52px', objectFit: 'contain', display: 'block' }} />
   </a>
 </section>
@@ -395,7 +395,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer style={{ backgroundColor: '#FFD60A', padding: '44px 24px' }}>
        <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          <img src="/logo.png" alt="Lern²" style={{ height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover', marginBottom: '16px' }} />
+          <img src="/logo.png" alt="Lern²" style={{ display: 'block', margin: '0 auto 16px', height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover' }} />
           <p style={{ fontSize: '13px', color: '#0F2A45', marginBottom: '16px', opacity: 0.7 }}>© 2026 Lern² · Kassel · Alle Rechte vorbehalten</p>
           <div className="footer-links" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '14px' }}>
             <a href={`https://wa.me/${WA}`} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>WhatsApp</a>
