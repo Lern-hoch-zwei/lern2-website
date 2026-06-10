@@ -1,6 +1,18 @@
 "use client";
 import { useState } from "react";
 
+const waLink = (msg: string) =>
+  `https://wa.me/4915679576256?text=${encodeURIComponent(msg)}`;
+
+const msgs = {
+  basis: `السلام عليكم فريق Lern²،\nأنا مهتم بباقة الأساسية (مرة في الأسبوع).\nهل يمكنكم إعطائي مزيداً من المعلومات؟\n\nAsSalamu aleikum Lern²-Team,\nich interessiere mich für das Basis-Paket (1x pro Woche).\nKönnen Sie mir mehr Infos geben?`,
+  standard: `السلام عليكم فريق Lern²،\nأنا مهتم بباقة Standard (مرتين في الأسبوع).\nهل يمكنكم إعطائي مزيداً من المعلومات؟\n\nAsSalamu aleikum Lern²-Team,\nich interessiere mich für das Standard-Paket (2x pro Woche).\nKönnen Sie mir mehr Infos geben?`,
+  premium: `السلام عليكم فريق Lern²،\nأنا مهتم بباقة Premium (تدريس فردي).\nهل يمكنكم إعطائي مزيداً من المعلومات؟\n\nAsSalamu aleikum Lern²-Team,\nich interessiere mich für das Premium-Paket (1-zu-1).\nKönnen Sie mir mehr Infos geben?`,
+  but: `السلام عليكم فريق Lern²،\nأريد معرفة ما إذا كان طفلي يحق له الحصول على دروس مجانية عبر BuT.\n\nAsSalamu aleikum Lern²-Team,\nich möchte wissen ob mein Kind Anspruch auf kostenlose Nachhilfe über BuT hat.`,
+  hero: `السلام عليكم فريق Lern²،\nأريد الاستفسار عن خدمات الدروس الخصوصية.\nهل يمكنكم إعطائي مزيداً من المعلومات؟\n\nAsSalamu aleikum Lern²-Team,\nich interessiere mich für Nachhilfe bei Lern².\nKönnen Sie mir mehr Infos geben?`,
+  general: `السلام عليكم فريق Lern²،\nأريد الاستفسار عن خدمات Lern².\n\nAsSalamu aleikum Lern²-Team,\nich möchte mehr über Lern² erfahren.`,
+};
+
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -11,8 +23,8 @@ export default function Home() {
       <nav style={{ padding: '0 32px', height: '72px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
         <img src="/logo.png" alt="Lern²" style={{ height: '44px', width: '44px', borderRadius: '8px', objectFit: 'cover' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <a href="https://wa.me/4915679576256" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>WhatsApp</a>
-          <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 18px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>Kostenlos anfragen</a>
+          <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>WhatsApp</a>
+          <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 18px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>Kostenlos anfragen</a>
         </div>
       </nav>
 
@@ -34,8 +46,8 @@ export default function Home() {
             Individuelle Nachhilfe und Sprachförderung in Kassel — persönlich, strukturiert und für viele Familien vollständig kostenlos.
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '16px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '16px' }}>Jetzt KOSTENLOS anfragen</a>
-            <a href="https://wa.me/4915679576256" style={{ backgroundColor: 'rgba(255,255,255,0.12)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', padding: '16px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '16px' }}>WhatsApp</a>
+            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '16px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '16px' }}>Jetzt KOSTENLOS anfragen</a>
+            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: 'rgba(255,255,255,0.12)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', padding: '16px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '16px' }}>WhatsApp</a>
           </div>
         </div>
       </section>
@@ -47,10 +59,10 @@ export default function Home() {
             { n: '100%', l: 'kostenlos über BuT' },
             { n: '5 ★', l: '10+ Google Bewertungen' },
             { n: 'Alle', l: 'Fächer & Klassenstufen' },
-            { n: '24h', l: 'Antwortzeit' },
+            { n: 'Innerhalb 24h', l: 'Antwortzeit' },
           ].map((s, i) => (
             <div key={i} style={{ flex: '1', minWidth: '130px', textAlign: 'center', padding: '12px 20px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
-              <div style={{ fontSize: '26px', fontWeight: '800', color: '#FFD60A' }}>{s.n}</div>
+              <div style={{ fontSize: i === 3 ? '18px' : '26px', fontWeight: '800', color: '#FFD60A' }}>{s.n}</div>
               <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>{s.l}</div>
             </div>
           ))}
@@ -79,7 +91,7 @@ export default function Home() {
           </div>
           <div style={{ textAlign: 'center', marginTop: '40px' }}>
             <p style={{ fontSize: '18px', fontWeight: '700', color: '#0F2A45', marginBottom: '20px' }}>Wir haben die Lösung — professionell, persönlich und für viele Familien kostenlos.</p>
-            <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt kostenlos anfragen</a>
+            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 28px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt kostenlos anfragen</a>
           </div>
         </div>
       </section>
@@ -139,8 +151,8 @@ export default function Home() {
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: '32px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS beraten lassen</a>
-            <a href="https://wa.me/4915679576256" style={{ backgroundColor: '#EEF4FF', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
+            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS beraten lassen</a>
+            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: '#EEF4FF', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
           </div>
         </div>
       </section>
@@ -152,12 +164,47 @@ export default function Home() {
           <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '48px', textAlign: 'center', color: '#0F2A45' }}>Das richtige Paket für jede Familie</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
             {[
-              { t: 'Basis', sub: 'Der solide Einstieg.', punkte: ['1x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Hausaufgabenbetreuung', 'Lernfortschritt wird dokumentiert'], highlight: false },
-              { t: 'Standard', sub: 'Empfohlen für die meisten Familien.', punkte: ['2x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Individuelles Lerntempo', 'Regelmäßige Eltern-Feedbacks', 'Fortschrittsanalyse monatlich', 'Prüfungsvorbereitung inklusive', 'Lückenanalyse & gezieltes Üben'], highlight: true },
-              { t: 'Premium Excellence', sub: 'Das Rundum-Sorglos-Paket.', punkte: ['Exklusive 1-zu-1 Betreuung', 'WhatsApp-Support Mo–Sa', 'Proaktive Erfolgs-Reports', 'Flexible Terminplanung'], highlight: false },
+              {
+                t: 'Basis', sub: 'Der solide Einstieg.', key: 'basis',
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="10" fill="#EEF4FF"/>
+                    <path d="M12 28V16l8-6 8 6v12H24v-6h-8v6H12z" fill="#3A86FF" opacity="0.3"/>
+                    <path d="M20 10l-9 7v13h6v-6h6v6h6V17l-9-7z" stroke="#0F2A45" strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                punkte: ['1x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Hausaufgabenbetreuung', 'Lernfortschritt wird dokumentiert'],
+                highlight: false
+              },
+              {
+                t: 'Standard', sub: 'Empfohlen für die meisten Familien.', key: 'standard',
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="10" fill="#FFD60A" opacity="0.2"/>
+                    <path d="M20 8l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" fill="#FFD60A" opacity="0.4"/>
+                    <path d="M20 8l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" stroke="#0F2A45" strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                ),
+                punkte: ['2x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Individuelles Lerntempo', 'Regelmäßige Eltern-Feedbacks', 'Fortschrittsanalyse monatlich', 'Prüfungsvorbereitung inklusive', 'Lückenanalyse & gezieltes Üben'],
+                highlight: true
+              },
+              {
+                t: 'Premium Excellence', sub: 'Das Rundum-Sorglos-Paket.', key: 'premium',
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="10" fill="#EEF4FF"/>
+                    <path d="M10 16l4 12h12l4-12-6 4-4-8-4 8-6-4z" fill="#3A86FF" opacity="0.3"/>
+                    <path d="M10 16l4 12h12l4-12-6 4-4-8-4 8-6-4z" stroke="#0F2A45" strokeWidth="1.5" strokeLinejoin="round"/>
+                    <path d="M15 13h10" stroke="#FFD60A" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                ),
+                punkte: ['Exklusive 1-zu-1 Betreuung', 'WhatsApp-Support Mo–Sa', 'Proaktive Erfolgs-Reports', 'Flexible Terminplanung'],
+                highlight: false
+              },
             ].map(p => (
               <div key={p.t} style={{ border: p.highlight ? '2px solid #0F2A45' : '1px solid #E8EDF2', borderRadius: '12px', padding: '28px', position: 'relative', backgroundColor: p.highlight ? '#0F2A45' : '#fff' }}>
                 {p.highlight && <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#FFD60A', color: '#0F2A45', fontSize: '11px', fontWeight: '700', padding: '4px 14px', borderRadius: '20px', whiteSpace: 'nowrap' }}>Empfohlen für die meisten Familien</div>}
+                <div style={{ marginBottom: '16px' }}>{p.icon}</div>
                 <h3 style={{ fontSize: '19px', fontWeight: '800', color: p.highlight ? '#fff' : '#0F2A45', marginBottom: '6px' }}>Lern² {p.t}</h3>
                 <p style={{ fontSize: '13px', color: p.highlight ? 'rgba(255,255,255,0.6)' : '#8A9BAE', marginBottom: '20px' }}>{p.sub}</p>
                 <ul style={{ listStyle: 'none', padding: 0, marginBottom: '24px' }}>
@@ -167,7 +214,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <a href="https://wa.me/4915679576256" style={{ display: 'block', textAlign: 'center', backgroundColor: p.highlight ? '#FFD60A' : '#EEF4FF', color: '#0F2A45', padding: '12px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>
+                <a href={waLink(msgs[p.key as keyof typeof msgs])} target="_blank" style={{ display: 'block', textAlign: 'center', backgroundColor: p.highlight ? '#FFD60A' : '#EEF4FF', color: '#0F2A45', padding: '12px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>
                   {p.t === 'Basis' ? 'Basis anfragen' : p.t === 'Standard' ? 'Standard anfragen' : 'Premium anfragen'}
                 </a>
               </div>
@@ -219,8 +266,8 @@ export default function Home() {
             ))}
           </div>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
-            <a href="https://wa.me/4915679576256" style={{ backgroundColor: 'transparent', color: '#FFD60A', border: '2px solid #FFD60A', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
+            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
+            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: 'transparent', color: '#FFD60A', border: '2px solid #FFD60A', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
           </div>
         </div>
       </section>
@@ -232,10 +279,10 @@ export default function Home() {
             <div style={{ display: 'inline-block', backgroundColor: '#EEF4FF', color: '#3A86FF', fontSize: '11px', fontWeight: '700', padding: '4px 12px', borderRadius: '20px', marginBottom: '16px', border: '1px solid #D6E4FF' }}>Lern² Initiative</div>
             <h2 style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: '800', letterSpacing: '-0.5px', marginBottom: '16px', color: '#0F2A45' }}>Chancengleichheit durch Bildung</h2>
             <p style={{ fontSize: '15px', color: '#556678', lineHeight: '1.7' }}>
-              Wir glauben, dass jedes Kind die beste Förderung verdient, unabhängig vom Einkommen der Eltern. Wir überprüfen, ob Ihr Kind Anspruch auf <strong>Bildung und Teilhabe (BuT)</strong> hat. Beziehen Sie <strong>Wohngeld, Bürgergeld</strong> oder <strong>Kinderzuschuss</strong>? Dann ist die Nachhilfe für Sie zu <strong>100% kostenlos</strong>.
+              Wir glauben, dass jedes Kind die beste Förderung verdient, unabhängig vom Einkommen der Eltern. Beziehen Sie <strong>Wohngeld, Bürgergeld</strong> oder <strong>Kinderzuschuss</strong>? Dann ist die Nachhilfe für Sie zu <strong>100% kostenlos</strong>.
             </p>
           </div>
-          <a href="https://forms.gle/1YJEYPZZNyvxG8os5" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px', whiteSpace: 'nowrap' }}>Jetzt Anspruch kostenlos prüfen</a>
+          <a href={waLink(msgs.but)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px', whiteSpace: 'nowrap' }}>Jetzt Anspruch kostenlos prüfen</a>
         </div>
       </section>
 
@@ -279,9 +326,9 @@ export default function Home() {
           <img src="/logo.png" alt="Lern²" style={{ height: '72px', width: '72px', borderRadius: '14px', objectFit: 'cover', marginBottom: '20px' }} />
           <p style={{ fontSize: '14px', color: '#0F2A45', marginBottom: '20px', opacity: 0.7 }}>© 2026 Lern² · Kassel · Alle Rechte vorbehalten</p>
           <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
-            <a href="https://wa.me/4915679576256" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>WhatsApp</a>
-            <a href="https://www.instagram.com/lern_hoch_2" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Instagram</a>
-            <a href="https://www.facebook.com/share/1EHvQ67ZQ8/" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Facebook</a>
+            <a href={waLink(msgs.general)} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>WhatsApp</a>
+            <a href="https://www.instagram.com/lern_hoch_2" target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Instagram</a>
+            <a href="https://www.facebook.com/share/1EHvQ67ZQ8/" target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Facebook</a>
             <a href="/impressum" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none' }}>Impressum</a>
             <a href="/datenschutz" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none' }}>Datenschutz</a>
           </div>
