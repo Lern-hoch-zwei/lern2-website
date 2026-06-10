@@ -11,7 +11,7 @@ const langs = [
 
 const getLabel = (code: string) => {
   if (code === 'ar') return 'ع';
-  if (code === 'fa') return 'ف';
+  if (code === 'fa') return 'د';
   if (code === 'tr') return 'TR';
   return 'DE';
 };
