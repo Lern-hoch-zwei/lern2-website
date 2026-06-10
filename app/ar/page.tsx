@@ -37,7 +37,7 @@ export default function HomeAr() {
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <LanguageDropdown current="ar" />
   </div>
-</div>
+
           <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 12px' }}>واتساب</a>
           <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 18px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>استفسر مجاناً</a>
         </div>
