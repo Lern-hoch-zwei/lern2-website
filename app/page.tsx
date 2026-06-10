@@ -392,7 +392,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <<footer style={{ backgroundColor: '#FFD60A', padding: '44px 24px' }}>
+      <footer style={{ backgroundColor: '#FFD60A', padding: '44px 24px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <img src="/logo.png" alt="Lern²" style={{ height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover', marginBottom: '16px' }} />
           <p style={{ fontSize: '13px', color: '#0F2A45', marginBottom: '16px', opacity: 0.7 }}>© 2026 Lern² · Kassel · Alle Rechte vorbehalten</p>
