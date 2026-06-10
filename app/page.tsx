@@ -2,8 +2,12 @@
 import { useState } from "react";
 import LanguageDropdown from "./components/LanguageDropdown";
 
+const WA = "4915679576256";
+const IG = "https://www.instagram.com/lern_hoch_2";
+const FB = "https://www.facebook.com/share/1EHvQ67ZQ8/";
+
 const waLink = (msg: string) =>
-  `https://wa.me/4915679576256?text=${encodeURIComponent(msg)}`;
+  `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
 
 const msgs = {
   basis: `السلام عليكم فريق Lern²،\nأنا مهتم بباقة Basis (مرة في الأسبوع).\nهل يمكنكم إعطائي مزيداً من المعلومات؟\n\nAsSalamu aleikum Lern²-Team,\nich interessiere mich für das Basis-Paket (1x pro Woche).\nKönnen Sie mir mehr Infos geben?`,
@@ -16,28 +20,55 @@ const msgs = {
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [form, setForm] = useState({ name: '', kind: '', fach: '', tel: '' });
+
+  const handleSubmit = () => {
+    if (!form.name || !form.tel) return;
+    const msg = `السلام عليكم فريق Lern²،\n\nAsSalamu aleikum Lern²-Team,\n\nNeue Anfrage über die Website:\n\n👤 Name: ${form.name}\n👶 Kind: ${form.kind}\n📚 Fach: ${form.fach}\n📞 Telefon: ${form.tel}\n\nBitte um Rückruf. Vielen Dank!`;
+    window.open(waLink(msg), '_blank');
+  };
 
   return (
     <main style={{ fontFamily: "'Inter', sans-serif", backgroundColor: '#ffffff', color: '#0A0A0A', margin: 0 }}>
       <style>{`
+        * { box-sizing: border-box; }
         @media (max-width: 768px) {
-          .hero-content { padding: 48px 24px !important; }
-          .hero-section { min-height: 500px !important; }
-          .stats-item { min-width: 100px !important; padding: 10px 12px !important; }
-          .timeline-card { width: 80% !important; }
+          .nav-wa { display: none !important; }
+          .hero-section { min-height: 480px !important; }
+          .hero-content { padding: 48px 20px 60px !important; }
+          .hero-h1 { font-size: 32px !important; letter-spacing: -1px !important; }
+          .hero-p { font-size: 15px !important; }
+          .stats-bar { padding: 20px 12px !important; }
+          .stats-item { min-width: 80px !important; padding: 8px 10px !important; }
+          .stats-n { font-size: 18px !important; }
+          .stats-l { font-size: 10px !important; }
+          .section-pad { padding: 52px 20px !important; }
+          .grid-2 { grid-template-columns: 1fr !important; }
           .timeline-line { display: none !important; }
-          .nav-inner { padding: 0 16px !important; }
-          .section-pad { padding: 60px 20px !important; }
-          .initiative-inner { padding: 28px 24px !important; flex-direction: column !important; }
+          .timeline-card { width: 90% !important; margin: 0 auto 32px !important; justify-content: center !important; }
+          .timeline-num { left: calc(5% + 20px) !important; }
+          .pakete-grid { grid-template-columns: 1fr !important; }
+          .initiative-inner { flex-direction: column !important; padding: 28px 20px !important; }
+          .footer-links { gap: 12px !important; }
+          .nav-inner { padding: 0 16px !important; height: 60px !important; }
+          .form-row { flex-direction: column !important; }
         }
       `}</style>
+
+      {/* FLOATING WA BUTTON */}
+      <a href={`https://wa.me/${WA}`} target="_blank" style={{ position: 'fixed', bottom: '24px', right: '24px', width: '56px', height: '56px', backgroundColor: '#25D366', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 999, boxShadow: '0 4px 16px rgba(37,211,102,0.4)', textDecoration: 'none' }}>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.112 1.523 5.836L0 24l6.337-1.501A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.493-5.18-1.355l-.371-.22-3.862.914.978-3.768-.242-.388A9.936 9.936 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+      </a>
 
       {/* NAV */}
       <nav className="nav-inner" style={{ padding: '0 32px', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
         <img src="/logo.png" alt="Lern²" style={{ height: '42px', width: '42px', borderRadius: '8px', objectFit: 'cover' }} />
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <LanguageDropdown current="de" />
-          <a href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 10px', display: 'none' }} className="hide-mobile">WhatsApp</a>
+          <a className="nav-wa" href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 10px' }}>WhatsApp</a>
           <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '13px', whiteSpace: 'nowrap' }}>Kostenlos anfragen</a>
         </div>
       </nav>
@@ -53,42 +84,42 @@ export default function Home() {
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#FFD60A', display: 'inline-block' }}></span>
             <span style={{ fontSize: '13px', color: '#fff', fontWeight: '500' }}>Professionelle Nachhilfe in Kassel</span>
           </div>
-          <h1 style={{ fontSize: 'clamp(28px, 5vw, 58px)', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-2px', color: '#fff', marginBottom: '20px' }}>
+          <h1 className="hero-h1" style={{ fontSize: 'clamp(30px, 5vw, 58px)', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-2px', color: '#fff', marginBottom: '18px' }}>
             Wir helfen Ihrem Kind,<br />bessere Noten<br /><span style={{ color: '#FFD60A' }}>zu erreichen.</span>
           </h1>
-          <p style={{ fontSize: 'clamp(15px, 2vw, 18px)', color: 'rgba(255,255,255,0.8)', lineHeight: '1.7', marginBottom: '32px', maxWidth: '500px' }}>
+          <p className="hero-p" style={{ fontSize: '17px', color: 'rgba(255,255,255,0.8)', lineHeight: '1.7', marginBottom: '32px', maxWidth: '500px' }}>
             Individuelle Nachhilfe und Sprachförderung in Kassel — persönlich, strukturiert und für viele Familien vollständig kostenlos.
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: 'clamp(14px, 2vw, 16px)' }}>Jetzt KOSTENLOS anfragen</a>
-            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: 'rgba(255,255,255,0.12)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: 'clamp(14px, 2vw, 16px)' }}>WhatsApp</a>
+            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
+            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: 'rgba(255,255,255,0.12)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
           </div>
         </div>
       </section>
 
       {/* STATS */}
-      <section style={{ backgroundColor: '#0F2A45', padding: '24px 20px' }}>
+      <section className="stats-bar" style={{ backgroundColor: '#0F2A45', padding: '24px 20px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
             { n: '100%', l: 'kostenlos über BuT' },
             { n: '5 ★', l: '10+ Google Bewertungen' },
-            { n: 'Alle', l: 'Fächer & Klassenstufen' },
-            { n: 'Innerhalb 24h', l: 'Antwortzeit' },
+            { n: 'Alle', l: 'Fächer & Klassen' },
+            { n: '24h', l: 'Antwortzeit' },
           ].map((s, i) => (
-            <div key={i} className="stats-item" style={{ flex: '1', minWidth: '130px', textAlign: 'center', padding: '12px 16px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
-              <div style={{ fontSize: i === 3 ? '16px' : '24px', fontWeight: '800', color: '#FFD60A' }}>{s.n}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px' }}>{s.l}</div>
+            <div key={i} className="stats-item" style={{ flex: '1', minWidth: '120px', textAlign: 'center', padding: '10px 16px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
+              <div className="stats-n" style={{ fontSize: '24px', fontWeight: '800', color: '#FFD60A' }}>{s.n}</div>
+              <div className="stats-l" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '3px' }}>{s.l}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* PAIN POINTS */}
-      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderBottom: '1px solid #D6E4FF', padding: '80px 32px' }}>
+      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderBottom: '1px solid #D6E4FF', padding: '72px 32px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Kennen Sie das?</p>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 36px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '40px', textAlign: 'center', color: '#0F2A45' }}>Viele Eltern stehen vor denselben Herausforderungen.</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
+          <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px' }}>
             {[
               { icon: '⏰', text: 'Sie haben keine Zeit, Ihrem Kind bei den Hausaufgaben zu helfen?' },
               { icon: '📚', text: 'Sie verstehen den Schulstoff selbst nicht mehr?' },
@@ -97,21 +128,21 @@ export default function Home() {
               { icon: '😟', text: 'Ihr Kind versteht den Stoff in der Schule nicht mehr?' },
               { icon: '👨‍🏫', text: 'Der Lehrer hat keine Zeit für individuelle Förderung?' },
             ].map((p, i) => (
-              <div key={i} style={{ backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '12px', padding: '20px', display: 'flex', gap: '14px', alignItems: 'flex-start', boxShadow: '0 2px 8px rgba(58,134,255,0.06)' }}>
+              <div key={i} style={{ backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '12px', padding: '18px', display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                 <span style={{ fontSize: '22px', flexShrink: 0 }}>{p.icon}</span>
                 <p style={{ fontSize: '14px', color: '#334455', lineHeight: '1.6', fontWeight: '500', margin: 0 }}>{p.text}</p>
               </div>
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }}>
-            <p style={{ fontSize: '17px', fontWeight: '700', color: '#0F2A45', marginBottom: '18px' }}>Wir haben die Lösung — professionell, persönlich und für viele Familien kostenlos.</p>
-            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt kostenlos anfragen</a>
+            <p style={{ fontSize: '17px', fontWeight: '700', color: '#0F2A45', marginBottom: '16px' }}>Wir haben die Lösung — professionell, persönlich und für viele Familien kostenlos.</p>
+            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt kostenlos anfragen</a>
           </div>
         </div>
       </section>
 
       {/* ÜBER UNS */}
-      <section className="section-pad" style={{ maxWidth: '960px', margin: '0 auto', padding: '80px 32px' }}>
+      <section className="section-pad" style={{ maxWidth: '960px', margin: '0 auto', padding: '72px 32px' }}>
         <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', fontWeight: '600' }}>Über uns</p>
         <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '16px', color: '#0F2A45' }}>Wir unterstützen Schüler auf dem Weg zu besseren Noten</h2>
         <p style={{ fontSize: '16px', color: '#556678', lineHeight: '1.8', marginBottom: '24px', maxWidth: '700px' }}>
@@ -138,11 +169,11 @@ export default function Home() {
       </section>
 
       {/* ABLAUF */}
-      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderTop: '1px solid #D6E4FF', borderBottom: '1px solid #D6E4FF', padding: '80px 32px' }}>
+      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderTop: '1px solid #D6E4FF', borderBottom: '1px solid #D6E4FF', padding: '72px 32px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Ablauf</p>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '12px', textAlign: 'center', color: '#0F2A45' }}>Schritt für Schritt zur besseren Note</h2>
-          <p style={{ fontSize: '16px', color: '#556678', textAlign: 'center', maxWidth: '560px', margin: '0 auto 56px' }}>
+          <p style={{ fontSize: '15px', color: '#556678', textAlign: 'center', maxWidth: '560px', margin: '0 auto 52px' }}>
             Ihr Kind steht bei uns im Mittelpunkt — vom ersten Kennenlernen bis zum gemeinsamen Erfolg.
           </p>
           <div style={{ position: 'relative' }}>
@@ -153,7 +184,7 @@ export default function Home() {
               { n: '3', icon: '🎓', t: 'Begleitung & Erfolgskontrolle', d: 'Wir begleiten Ihr Kind kontinuierlich, passen den Plan bei Bedarf an und halten Sie regelmäßig über die Fortschritte auf dem Laufenden.', side: 'right' },
             ].map((s, i) => (
               <div key={i} className="timeline-card" style={{ display: 'flex', justifyContent: s.side === 'right' ? 'flex-end' : 'flex-start', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
-                <div style={{ position: 'absolute', left: '50%', top: '20px', transform: 'translateX(-50%)', width: '40px', height: '40px', backgroundColor: '#FFD60A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px', color: '#0F2A45', border: '3px solid #fff', zIndex: 2 }}>{s.n}</div>
+                <div className="timeline-num" style={{ position: 'absolute', left: '50%', top: '20px', transform: 'translateX(-50%)', width: '40px', height: '40px', backgroundColor: '#FFD60A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px', color: '#0F2A45', border: '3px solid #fff', zIndex: 2 }}>{s.n}</div>
                 <div style={{ width: '44%', backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '14px', padding: '24px', boxShadow: '0 4px 16px rgba(58,134,255,0.08)' }}>
                   <div style={{ fontSize: '28px', marginBottom: '10px' }}>{s.icon}</div>
                   <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '8px', color: '#0F2A45' }}>{s.t}</h3>
@@ -163,18 +194,18 @@ export default function Home() {
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: '24px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS beraten lassen</a>
+            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS beraten lassen</a>
             <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: '#EEF4FF', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
           </div>
         </div>
       </section>
 
       {/* PAKETE */}
-      <section className="section-pad" style={{ padding: '80px 32px' }}>
+      <section className="section-pad" style={{ padding: '72px 32px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Angebote</p>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '40px', textAlign: 'center', color: '#0F2A45' }}>Das richtige Paket für jede Familie</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+          <div className="pakete-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
             {[
               { t: 'Basis', sub: 'Der solide Einstieg.', key: 'basis', punkte: ['1x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Hausaufgabenbetreuung', 'Lernfortschritt wird dokumentiert'], highlight: false },
               { t: 'Standard', sub: 'Empfohlen für die meisten Familien.', key: 'standard', punkte: ['2x 90 Min pro Woche', 'Kleingruppe (max. 4 Schüler)', 'Individuelles Lerntempo', 'Regelmäßige Eltern-Feedbacks', 'Fortschrittsanalyse monatlich', 'Prüfungsvorbereitung inklusive', 'Lückenanalyse & gezieltes Üben'], highlight: true },
@@ -186,7 +217,7 @@ export default function Home() {
                 <p style={{ fontSize: '13px', color: p.highlight ? 'rgba(255,255,255,0.6)' : '#8A9BAE', marginBottom: '18px' }}>{p.sub}</p>
                 <ul style={{ listStyle: 'none', padding: 0, marginBottom: '22px' }}>
                   {p.punkte.map(punkt => (
-                    <li key={punkt} style={{ fontSize: '14px', color: p.highlight ? 'rgba(255,255,255,0.9)' : '#556678', padding: '8px 0', borderBottom: `1px solid ${p.highlight ? 'rgba(255,255,255,0.1)' : '#F0F4F8'}`, display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                    <li key={punkt} style={{ fontSize: '14px', color: p.highlight ? 'rgba(255,255,255,0.9)' : '#556678', padding: '8px 0', borderBottom: `1px solid ${p.highlight ? 'rgba(255,255,255,0.1)' : '#F0F4F8'}`, display: 'flex', gap: '10px' }}>
                       <span style={{ color: '#FFD60A', fontWeight: '800', flexShrink: 0 }}>✓</span>{punkt}
                     </li>
                   ))}
@@ -201,14 +232,14 @@ export default function Home() {
       </section>
 
       {/* BEWERTUNGEN */}
-      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderTop: '1px solid #D6E4FF', borderBottom: '1px solid #D6E4FF', padding: '80px 32px' }}>
+      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderTop: '1px solid #D6E4FF', borderBottom: '1px solid #D6E4FF', padding: '72px 32px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Bewertungen</p>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '8px', textAlign: 'center', color: '#0F2A45' }}>Das sagen unsere Familien</h2>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <a href="https://www.google.com/maps/place/Lern%C2%B2" target="_blank" style={{ fontSize: '14px', color: '#556678', textDecoration: 'none' }}>⭐ 5 von 5 Sternen · 10+ Bewertungen auf Google</a>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
+          <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
             {[
               { name: 'عمرو ع', text: 'Sehr gute Nachhilfe! Mein Kind hat sich in kurzer Zeit deutlich verbessert. Der Unterricht ist verständlich und freundlich. Wir sind sehr zufrieden!' },
               { name: 'Abod A.', text: 'Die Lehrer sind freundlich und erklären alles klar. Mein Kind macht gute Fortschritte. Wir sind sehr zufrieden und dankbar.' },
@@ -216,7 +247,7 @@ export default function Home() {
               { name: 'Abdulkader O.', text: 'دوام التوفيق لمشروعكم الذي يهدف لتعزيز قدرات أبنائنا في اللغة الالمانية والإنكليزية.', translation: 'Stetiger Erfolg für euer Projekt, das die Fähigkeiten unserer Kinder in Deutsch und Englisch stärkt.' },
               { name: 'Nora H.', text: 'شكرا لكم بفضلكم وبفضل جهودكم اولادي اصبحوا افضل وعلاماتهم جيدة.', translation: 'Vielen Dank — dank eurer Bemühungen sind meine Kinder besser geworden und ihre Noten sind gut.' },
             ].map(r => (
-              <div key={r.name} style={{ border: '1px solid #D6E4FF', borderRadius: '12px', padding: '22px', backgroundColor: '#fff', boxShadow: '0 2px 8px rgba(58,134,255,0.06)' }}>
+              <div key={r.name} style={{ border: '1px solid #D6E4FF', borderRadius: '12px', padding: '22px', backgroundColor: '#fff' }}>
                 <div style={{ color: '#FFD60A', fontSize: '14px', marginBottom: '10px' }}>★★★★★</div>
                 <p style={{ fontSize: '14px', color: '#556678', lineHeight: '1.7', marginBottom: '8px' }}>"{r.text}"</p>
                 {(r as any).translation && <p style={{ fontSize: '13px', color: '#8A9BAE', lineHeight: '1.6', marginBottom: '10px', fontStyle: 'italic' }}>"{(r as any).translation}"</p>}
@@ -243,15 +274,78 @@ export default function Home() {
             ))}
           </div>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
+            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
             <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: 'transparent', color: '#FFD60A', border: '2px solid #FFD60A', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
           </div>
         </div>
       </section>
 
+      {/* KONTAKTFORMULAR */}
+      <section id="kontakt" className="section-pad" style={{ padding: '72px 32px', backgroundColor: '#fff' }}>
+        <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+          <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Kontakt</p>
+          <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '8px', textAlign: 'center', color: '#0F2A45' }}>Jetzt kostenlos anfragen</h2>
+          <p style={{ fontSize: '15px', color: '#556678', textAlign: 'center', marginBottom: '36px' }}>Füllen Sie das Formular aus — wir melden uns innerhalb von 24 Stunden über WhatsApp.</p>
+          <div style={{ backgroundColor: '#F7F9FC', border: '1px solid #E8EDF2', borderRadius: '16px', padding: '32px' }}>
+            <div className="form-row" style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>Ihr Name *</label>
+                <input
+                  type="text"
+                  placeholder="z.B. Ahmad Al-Hassan"
+                  value={form.name}
+                  onChange={e => setForm({ ...form, name: e.target.value })}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>Name des Kindes</label>
+                <input
+                  type="text"
+                  placeholder="z.B. Sara, Klasse 5"
+                  value={form.kind}
+                  onChange={e => setForm({ ...form, kind: e.target.value })}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
+                />
+              </div>
+            </div>
+            <div className="form-row" style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>Fach / Fächer</label>
+                <input
+                  type="text"
+                  placeholder="z.B. Mathematik, Deutsch"
+                  value={form.fach}
+                  onChange={e => setForm({ ...form, fach: e.target.value })}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>WhatsApp / Telefon *</label>
+                <input
+                  type="tel"
+                  placeholder="z.B. 0151 12345678"
+                  value={form.tel}
+                  onChange={e => setForm({ ...form, tel: e.target.value })}
+                  style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
+                />
+              </div>
+            </div>
+            <button
+              onClick={handleSubmit}
+              style={{ width: '100%', backgroundColor: form.name && form.tel ? '#FFD60A' : '#E8EDF2', color: form.name && form.tel ? '#0F2A45' : '#AAB', padding: '14px', borderRadius: '8px', border: 'none', fontWeight: '700', fontSize: '15px', cursor: form.name && form.tel ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}>
+              📲 Anfrage über WhatsApp senden
+            </button>
+            <p style={{ fontSize: '12px', color: '#8A9BAE', textAlign: 'center', marginTop: '12px' }}>
+              Mit dem Absenden öffnet sich WhatsApp mit Ihrer Anfrage. Wir antworten innerhalb von 24h.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* INITIATIVE */}
-      <section className="section-pad" style={{ padding: '56px 24px', backgroundColor: '#F7F9FC', borderBottom: '1px solid #E8EDF2' }}>
-        <div className="initiative-inner" style={{ maxWidth: '880px', margin: '0 auto', backgroundColor: '#fff', borderRadius: '16px', padding: '36px 44px', display: 'flex', gap: '36px', alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 4px 24px rgba(58,134,255,0.08)', border: '1px solid #D6E4FF' }}>
+      <section className="section-pad" style={{ padding: '56px 24px', backgroundColor: '#F7F9FC', borderTop: '1px solid #E8EDF2', borderBottom: '1px solid #E8EDF2' }}>
+        <div className="initiative-inner" style={{ maxWidth: '880px', margin: '0 auto', backgroundColor: '#fff', borderRadius: '16px', padding: '36px 44px', display: 'flex', gap: '32px', alignItems: 'center', flexWrap: 'wrap', boxShadow: '0 4px 24px rgba(58,134,255,0.08)', border: '1px solid #D6E4FF' }}>
           <div style={{ flex: 1, minWidth: '240px' }}>
             <div style={{ display: 'inline-block', backgroundColor: '#EEF4FF', color: '#3A86FF', fontSize: '11px', fontWeight: '700', padding: '4px 12px', borderRadius: '20px', marginBottom: '14px', border: '1px solid #D6E4FF' }}>Lern² Initiative</div>
             <h2 style={{ fontSize: 'clamp(18px, 3vw, 24px)', fontWeight: '800', marginBottom: '14px', color: '#0F2A45' }}>Chancengleichheit durch Bildung</h2>
@@ -272,7 +366,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', padding: '80px 24px' }}>
+      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', padding: '72px 24px' }}>
         <div style={{ maxWidth: '680px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>FAQ</p>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '40px', textAlign: 'center', color: '#0F2A45' }}>Häufig gestellte Fragen</h2>
@@ -302,16 +396,17 @@ export default function Home() {
         <div style={{ maxWidth: '960px', margin: '0 auto', textAlign: 'center' }}>
           <img src="/logo.png" alt="Lern²" style={{ height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover', marginBottom: '16px' }} />
           <p style={{ fontSize: '13px', color: '#0F2A45', marginBottom: '16px', opacity: 0.7 }}>© 2026 Lern² · Kassel · Alle Rechte vorbehalten</p>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '14px' }}>
-            <a href={waLink(msgs.general)} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>WhatsApp</a>
-            <a href="https://www.instagram.com/lern_hoch_2" target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Instagram</a>
-            <a href="https://www.facebook.com/share/1EHvQ67ZQ8/" target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Facebook</a>
+          <div className="footer-links" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '14px' }}>
+            <a href={`https://wa.me/${WA}`} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>WhatsApp</a>
+            <a href={IG} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Instagram</a>
+            <a href={FB} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Facebook</a>
             <a href="/impressum" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none' }}>Impressum</a>
             <a href="/datenschutz" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none' }}>Datenschutz</a>
           </div>
           <p style={{ fontSize: '12px', color: '#0F2A45', opacity: 0.6 }}>Mit ❤️ entwickelt für die Zukunft unserer Kinder</p>
         </div>
       </footer>
+
     </main>
   )
 }
