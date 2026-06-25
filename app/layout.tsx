@@ -2,8 +2,40 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Lern² — Nachhilfe in Kassel',
-  description: 'Individuelle Nachhilfe und Sprachförderung in Kassel — kostenlos über BuT',
+  metadataBase: new URL('https://www.lern2.com'),
+  title: 'Lern² — Nachhilfe & Sprachförderung in Kassel',
+  description:
+    'Individuelle Nachhilfe in Mathe, Deutsch und vielen weiteren Fächern in Kassel. Für viele Familien kostenlos über BuT. Jetzt unverbindlich per WhatsApp anfragen.',
+  keywords: [
+    'Nachhilfe Kassel',
+    'Sprachförderung Kassel',
+    'BuT Nachhilfe',
+    'kostenlose Nachhilfe Kassel',
+    'Mathe Nachhilfe Kassel',
+    'Deutsch lernen Kassel',
+    'Lern²',
+  ],
+  alternates: {
+    canonical: '/',
+    languages: {
+      de: '/',
+      ar: '/ar',
+      tr: '/tr',
+      fa: '/fa',
+      'x-default': '/',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'Lern²',
+    title: 'Lern² — Nachhilfe & Sprachförderung in Kassel',
+    description:
+      'Individuelle Nachhilfe in Mathe, Deutsch und mehr in Kassel. Für viele Familien kostenlos über BuT.',
+    url: 'https://www.lern2.com/',
+    locale: 'de_DE',
+    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'Lern²' }],
+  },
+  robots: { index: true, follow: true },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
