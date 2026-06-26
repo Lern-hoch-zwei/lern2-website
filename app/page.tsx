@@ -24,10 +24,23 @@ export default function Home() {
 
   const handleSubmit = () => {
     if (!form.name || !form.tel) return;
+
+    // Lead im Hintergrund in Supabase speichern (blockiert nichts)
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: form.name,
+        tel:  form.tel,
+        kind: form.kind,
+        fach: form.fach,
+        lang: 'de',
+      }),
+    }).catch(() => { /* still WhatsApp öffnen, auch wenn Speichern scheitert */ });
+
     const msg = `السلام عليكم فريق Lern²،\n\nAsSalamu aleikum Lern²-Team,\n\nNeue Anfrage über die Website:\n\n👤 Name: ${form.name}\n👶 Kind: ${form.kind}\n📚 Fach: ${form.fach}\n📞 Telefon: ${form.tel}\n\nBitte um Rückruf. Vielen Dank!`;
     window.open(waLink(msg), '_blank');
   };
-
   return (
     <main style={{ fontFamily: "'Inter', sans-serif", backgroundColor: '#ffffff', color: '#0A0A0A', margin: 0 }}>
       <style>{`
