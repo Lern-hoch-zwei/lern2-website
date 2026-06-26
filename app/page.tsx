@@ -25,7 +25,6 @@ export default function Home() {
   const handleSubmit = () => {
     if (!form.name || !form.tel) return;
 
-    // Lead im Hintergrund in Supabase speichern (blockiert nichts)
     fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -36,7 +35,7 @@ export default function Home() {
         fach: form.fach,
         lang: 'de',
       }),
-    }).catch(() => { /* still WhatsApp öffnen, auch wenn Speichern scheitert */ });
+    }).catch(() => {});
 
     const msg = `السلام عليكم فريق Lern²،\n\nAsSalamu aleikum Lern²-Team,\n\nNeue Anfrage über die Website:\n\n👤 Name: ${form.name}\n👶 Kind: ${form.kind}\n📚 Fach: ${form.fach}\n📞 Telefon: ${form.tel}\n\nBitte um Rückruf. Vielen Dank!`;
     window.open(waLink(msg), '_blank');
