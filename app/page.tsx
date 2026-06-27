@@ -282,7 +282,9 @@ export default function Home() {
                   <s.Icon size={24} color="#FFD60A" strokeWidth={2.2} />
                 </div>
                 <div className="timeline-inner" style={{ width: '44%', backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '14px', padding: '24px', boxShadow: '0 4px 16px rgba(58,134,255,0.08)' }}>
-                  <p style={{ fontSize: '11px', fontWeight: '700', color: '#3A86FF', letterSpacing: '1.5px', marginBottom: '6px' }}>SCHRITT {s.n}</p>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
+                    <s.Icon size={22} color="#3A86FF" strokeWidth={2} />
+                  </div>
                   <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '8px', color: '#0F2A45' }}>{s.t}</h3>
                   <p style={{ fontSize: '14px', color: '#556678', lineHeight: '1.7', margin: 0 }}>{s.d}</p>
                 </div>
