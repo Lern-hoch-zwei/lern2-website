@@ -131,6 +131,8 @@ export default function Home() {
         .footer-link:hover { opacity: 0.7; }
 
         @media (max-width: 768px) {
+          .ueberuns-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+          .ueberuns-images { display: none !important; }
           .hero-section { min-height: 480px !important; }
           .hero-content { padding: 48px 20px 60px !important; }
           .hero-h1 { font-size: 32px !important; letter-spacing: -1px !important; }
@@ -238,18 +240,22 @@ export default function Home() {
       </section>
 
       {/* ÜBER UNS */}
-      <section className="section-pad" style={{ maxWidth: '960px', margin: '0 auto', padding: '72px 32px', textAlign: 'center' }}>
-        <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', fontWeight: '600' }}>Über uns</p>
-        <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '16px', color: '#0F2A45' }}>Wir unterstützen Schüler auf dem Weg zu besseren Noten</h2>
-        <p style={{ fontSize: '16px', color: '#556678', lineHeight: '1.8', maxWidth: '720px', margin: '0 auto' }}>
-          Lern² steht für individuelle Förderung, die wirklich ankommt. Wir verstehen, dass jedes Kind anders lernt — und genau darauf gehen wir ein. Mit engagierten Lehrkräften, klaren Strukturen und einem familiären Umfeld helfen wir Schülern, ihre Stärken zu entdecken und ihre Schwächen Schritt für Schritt zu überwinden.
-        </p>
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '36px' }}>
-          {['/st1.jpg', '/st3.jpg', '/st4.jpg', '/st5.jpg'].map((src, i) => (
-            <div key={i} style={{ width: '120px', height: '120px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0 }}>
-              <img src={src} alt={`Schüler ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-          ))}
+      <section className="ueberuns-section section-pad" style={{ maxWidth: '1100px', margin: '0 auto', padding: '72px 32px' }}>
+        <div className="ueberuns-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center' }}>
+          <div className="ueberuns-text" style={{ textAlign: 'left' }}>
+            <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', fontWeight: '600' }}>Über uns</p>
+            <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '16px', color: '#0F2A45' }}>Wir unterstützen Schüler auf dem Weg zu besseren Noten</h2>
+            <p style={{ fontSize: '16px', color: '#556678', lineHeight: '1.8' }}>
+              Lern² steht für individuelle Förderung, die wirklich ankommt. Wir verstehen, dass jedes Kind anders lernt — und genau darauf gehen wir ein. Mit engagierten Lehrkräften, klaren Strukturen und einem familiären Umfeld helfen wir Schülern, ihre Stärken zu entdecken und ihre Schwächen Schritt für Schritt zu überwinden.
+            </p>
+          </div>
+          <div className="ueberuns-images" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            {['/s1.png', '/s2.png', '/s3.png', '/s4.png'].map((src, i) => (
+              <div key={i} style={{ aspectRatio: '1 / 1', borderRadius: '12px', overflow: 'hidden' }}>
+                <img src={src} alt={`Schüler ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -323,7 +329,7 @@ export default function Home() {
 
           {/* Klickbare Google-Karte mit echten Sternen */}
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <a href="https://www.google.com/maps/place/Lern%C2%B2" target="_blank" rel="noopener noreferrer" className="review-card">
+            <a href="https://maps.app.goo.gl/DvRDUa5KvaumETCo6?g_st=ic" target="_blank" rel="noopener noreferrer" className="review-card">
               <svg width="22" height="22" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
