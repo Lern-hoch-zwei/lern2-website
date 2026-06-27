@@ -197,7 +197,7 @@ export default function Home() {
       <section className="stats-bar" style={{ backgroundColor: '#0F2A45', padding: '24px 20px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
-            { n: '5 ★', l: '10 Google Bewertungen' },
+            { n: '5 ★', l: '10+ Google Bewertungen' },
             { n: 'Alle', l: 'Fächer & Klassen' },
             { n: '4', l: 'Sprachen: DE · AR · TR · FA' },
             { n: '24h', l: 'Antwortzeit' },
