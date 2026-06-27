@@ -44,8 +44,93 @@ export default function Home() {
     <main style={{ fontFamily: "'Inter', sans-serif", backgroundColor: '#ffffff', color: '#0A0A0A', margin: 0 }}>
       <style>{`
         * { box-sizing: border-box; }
+
+        /* === BUTTON HOVER-ANIMATIONEN (Etappe 1) === */
+        .cta-primary {
+          background-color: #FFD60A;
+          color: #0F2A45;
+          padding: 14px 24px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 700;
+          font-size: 15px;
+          display: inline-block;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+          box-shadow: 0 2px 8px rgba(255,214,10,0.25);
+          white-space: nowrap;
+        }
+        .cta-primary:hover {
+          transform: translateY(-2px);
+          background-color: #FFDE3D;
+          box-shadow: 0 8px 24px rgba(255,214,10,0.5);
+        }
+        .cta-primary:active { transform: translateY(0); }
+
+        .cta-primary-sm {
+          background-color: #FFD60A;
+          color: #0F2A45;
+          padding: 10px 16px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 700;
+          font-size: 13px;
+          display: inline-block;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+          white-space: nowrap;
+        }
+        .cta-primary-sm:hover {
+          transform: translateY(-1px);
+          background-color: #FFDE3D;
+          box-shadow: 0 6px 16px rgba(255,214,10,0.45);
+        }
+
+        .cta-card {
+          display: block;
+          text-align: center;
+          padding: 12px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 700;
+          font-size: 14px;
+          color: #0F2A45;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .cta-card-highlight { background-color: #FFD60A; }
+        .cta-card-normal { background-color: #EEF4FF; }
+        .cta-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(15,42,69,0.12);
+        }
+        .cta-card-highlight:hover { background-color: #FFDE3D; }
+        .cta-card-normal:hover { background-color: #DCE7FF; }
+
+        .review-card {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          background-color: #fff;
+          border: 1px solid #D6E4FF;
+          border-radius: 12px;
+          padding: 14px 22px;
+          text-decoration: none;
+          box-shadow: 0 2px 12px rgba(58,134,255,0.08);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .review-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(58,134,255,0.18);
+        }
+
+        .footer-link {
+          color: #0F2A45;
+          font-size: 14px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: opacity 0.2s ease;
+        }
+        .footer-link:hover { opacity: 0.7; }
+
         @media (max-width: 768px) {
-          .nav-wa { display: none !important; }
           .hero-section { min-height: 480px !important; }
           .hero-content { padding: 48px 20px 60px !important; }
           .hero-h1 { font-size: 32px !important; letter-spacing: -1px !important; }
@@ -77,12 +162,11 @@ export default function Home() {
       </a>
 
       {/* NAV */}
-       <nav style={{ padding: '0 32px', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
+      <nav className="nav-inner" style={{ padding: '0 32px', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E8EDF2', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 100 }}>
         <img src="/logo.png" alt="Lern²" style={{ height: '42px', width: '42px', borderRadius: '8px', objectFit: 'cover' }} />
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           <LanguageDropdown current="de" />
-          <a className="nav-wa" href={waLink(msgs.general)} target="_blank" style={{ color: '#666', fontSize: '14px', textDecoration: 'none', padding: '8px 10px' }}>WhatsApp</a>
-          <a href={waLink(msgs.hero)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '13px', whiteSpace: 'nowrap' }}>Kostenlos anfragen</a>
+          <a href="#kontakt" className="cta-primary-sm">Unverbindlich anfragen</a>
         </div>
       </nav>
 
@@ -104,8 +188,7 @@ export default function Home() {
             Individuelle Nachhilfe und Sprachförderung in Kassel — persönlich, strukturiert und für viele Familien vollständig kostenlos.
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
-            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: 'rgba(255,255,255,0.12)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
+            <a href="#kontakt" className="cta-primary">Unverbindlich anfragen</a>
           </div>
         </div>
       </section>
@@ -114,9 +197,9 @@ export default function Home() {
       <section className="stats-bar" style={{ backgroundColor: '#0F2A45', padding: '24px 20px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
-            { n: '100%', l: 'kostenlos über BuT' },
             { n: '5 ★', l: '10 Google Bewertungen' },
             { n: 'Alle', l: 'Fächer & Klassen' },
+            { n: '4', l: 'Sprachen: DE · AR · TR · FA' },
             { n: '24h', l: 'Antwortzeit' },
           ].map((s, i) => (
             <div key={i} className="stats-item" style={{ flex: '1', minWidth: '120px', textAlign: 'center', padding: '10px 16px', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
@@ -149,7 +232,7 @@ export default function Home() {
           </div>
           <div style={{ textAlign: 'center', marginTop: '36px' }}>
             <p style={{ fontSize: '17px', fontWeight: '700', color: '#0F2A45', marginBottom: '16px' }}>Wir haben die Lösung — professionell, persönlich und für viele Familien kostenlos.</p>
-            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 24px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt kostenlos anfragen</a>
+            <a href="#kontakt" className="cta-primary">Unverbindlich anfragen</a>
           </div>
         </div>
       </section>
@@ -158,45 +241,34 @@ export default function Home() {
       <section className="section-pad" style={{ maxWidth: '960px', margin: '0 auto', padding: '72px 32px', textAlign: 'center' }}>
         <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', fontWeight: '600' }}>Über uns</p>
         <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '16px', color: '#0F2A45' }}>Wir unterstützen Schüler auf dem Weg zu besseren Noten</h2>
-        <p style={{ fontSize: '16px', color: '#556678', lineHeight: '1.8', margin: '0 auto 24px', maxWidth: '700px' }}>
-          Seit vielen Jahren begleiten wir Kinder und Jugendliche mit und ohne Migrationshintergrund dabei, ihr volles Potenzial zu entfalten. Mit individueller Nachhilfe und Sprachförderung stärken wir Wissen, Selbstvertrauen und die Basis für eine erfolgreiche Zukunft.
+        <p style={{ fontSize: '16px', color: '#556678', lineHeight: '1.8', maxWidth: '720px', margin: '0 auto' }}>
+          Lern² steht für individuelle Förderung, die wirklich ankommt. Wir verstehen, dass jedes Kind anders lernt — und genau darauf gehen wir ein. Mit engagierten Lehrkräften, klaren Strukturen und einem familiären Umfeld helfen wir Schülern, ihre Stärken zu entdecken und ihre Schwächen Schritt für Schritt zu überwinden.
         </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '36px', justifyContent: 'center' }}>
-          {['Mathematik', 'Deutsch', 'Englisch', 'Physik', 'Chemie', 'Biologie', 'Arabisch', 'Französisch', 'Latein'].map(f => (
-            <span key={f} style={{ backgroundColor: '#EEF4FF', color: '#0F2A45', border: '1px solid #D6E4FF', padding: '6px 14px', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}>{f}</span>
-          ))}
-          <span style={{ backgroundColor: '#FFFBEA', color: '#7A6500', border: '1px solid #FFE566', padding: '6px 14px', borderRadius: '20px', fontSize: '13px', fontWeight: '500' }}>Für alle Klassenstufen, auch für Geflüchtete</span>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
-          {[
-            'https://images.unsplash.com/photo-1588072432836-e10032774350?w=400&q=90',
-            'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&q=90',
-            'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=90',
-            'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=400&q=90',
-          ].map((src, i) => (
-            <div key={i} style={{ borderRadius: '12px', overflow: 'hidden', aspectRatio: '3/4' }}>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '36px' }}>
+          {['/st1.jpg', '/st3.jpg', '/st4.jpg', '/st5.jpg'].map((src, i) => (
+            <div key={i} style={{ width: '120px', height: '120px', borderRadius: '12px', overflow: 'hidden', flexShrink: 0 }}>
               <img src={src} alt={`Schüler ${i+1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
         </div>
       </section>
 
-      {/* ABLAUF */}
+      {/* STEPS */}
       <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderTop: '1px solid #D6E4FF', borderBottom: '1px solid #D6E4FF', padding: '72px 32px' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Ablauf</p>
+        <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+          <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>So funktioniert's</p>
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '12px', textAlign: 'center', color: '#0F2A45' }}>Schritt für Schritt zur besseren Note</h2>
-          <p style={{ fontSize: '15px', color: '#556678', textAlign: 'center', maxWidth: '560px', margin: '0 auto 52px' }}>
-            Ihr Kind steht bei uns im Mittelpunkt — vom ersten Kennenlernen bis zum gemeinsamen Erfolg.
+          <p style={{ fontSize: '15px', color: '#556678', lineHeight: '1.7', textAlign: 'center', marginBottom: '48px', maxWidth: '640px', margin: '0 auto 48px' }}>
+            Wir machen den Einstieg in die Nachhilfe so einfach wie möglich — von der ersten Anfrage bis zum messbaren Lernerfolg.
           </p>
           <div style={{ position: 'relative' }}>
-            <div className="timeline-line" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px', background: 'linear-gradient(to bottom, #FFD60A, #3A86FF)', transform: 'translateX(-50%)', zIndex: 0 }}></div>
+            <div className="timeline-line" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px', backgroundColor: '#D6E4FF', transform: 'translateX(-50%)', zIndex: 0 }}></div>
             {[
-              { n: '1', icon: '👥', t: 'Kennenlernen & Analyse', d: 'Wir starten mit einem persönlichen Gespräch und einer gründlichen Analyse, um den Lernstand und die Bedürfnisse Ihres Kindes genau zu verstehen.', side: 'right' },
-              { n: '2', icon: '📅', t: 'Individueller Lernplan', d: 'Auf Basis der Analyse erstellen wir einen maßgeschneiderten Lernplan, der gezielt Stärken fördert und Schwächen Schritt für Schritt abbaut.', side: 'left' },
+              { n: '1', icon: '👋', t: 'Kontaktaufnahme & Erstgespräch', d: 'Sie melden sich bei uns. In einem unverbindlichen Gespräch lernen wir Sie und Ihr Kind kennen, klären die Ziele und beantworten alle Fragen.', side: 'left' },
+              { n: '2', icon: '📋', t: 'Bedarfsanalyse & Lernplan', d: 'Wir ermitteln die genauen Schwachstellen und erstellen einen individuellen Lernplan, der zu Ihrem Kind passt — mit klaren Schritten und realistischen Zielen.', side: 'right' },
               { n: '3', icon: '🎓', t: 'Begleitung & Erfolgskontrolle', d: 'Wir begleiten Ihr Kind kontinuierlich, passen den Plan bei Bedarf an und halten Sie regelmäßig über die Fortschritte auf dem Laufenden.', side: 'right' },
             ].map((s, i) => (
-              <div key={i} className="timeline-card" style={{ display: 'flex', justifyContent: s.side === 'right' ? 'flex-end' : 'flex-start', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
+              <div key={i} className="timeline-card" style={{ position: 'relative', display: 'flex', justifyContent: s.side === 'left' ? 'flex-start' : 'flex-end', marginBottom: '36px', zIndex: 1 }}>
                 <div className="timeline-num" style={{ position: 'absolute', left: '50%', top: '20px', transform: 'translateX(-50%)', width: '40px', height: '40px', backgroundColor: '#FFD60A', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '16px', color: '#0F2A45', border: '3px solid #fff', zIndex: 2 }}>{s.n}</div>
                 <div className="timeline-inner" style={{ width: '44%', backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '14px', padding: '24px', boxShadow: '0 4px 16px rgba(58,134,255,0.08)' }}>
                   <div style={{ fontSize: '28px', marginBottom: '10px' }}>{s.icon}</div>
@@ -206,9 +278,8 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div style={{ textAlign: 'center', marginTop: '24px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS beraten lassen</a>
-            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: '#EEF4FF', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
+          <div style={{ textAlign: 'center', marginTop: '24px' }}>
+            <a href="#kontakt" className="cta-primary">Beratungsgespräch vereinbaren</a>
           </div>
         </div>
       </section>
@@ -235,7 +306,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <a href={waLink(msgs[p.key as keyof typeof msgs])} target="_blank" style={{ display: 'block', textAlign: 'center', backgroundColor: p.highlight ? '#FFD60A' : '#EEF4FF', color: '#0F2A45', padding: '12px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>
+                <a href="#kontakt" className={`cta-card ${p.highlight ? 'cta-card-highlight' : 'cta-card-normal'}`}>
                   {p.t === 'Basis' ? 'Basis anfragen' : p.t === 'Standard' ? 'Standard anfragen' : 'Premium anfragen'}
                 </a>
               </div>
@@ -248,10 +319,27 @@ export default function Home() {
       <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', borderTop: '1px solid #D6E4FF', borderBottom: '1px solid #D6E4FF', padding: '72px 32px' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Bewertungen</p>
-          <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '8px', textAlign: 'center', color: '#0F2A45' }}>Das sagen unsere Familien</h2>
-          <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-            <a href="https://www.google.com/maps/place/Lern%C2%B2" target="_blank" style={{ fontSize: '14px', color: '#556678', textDecoration: 'none' }}>⭐ 5 von 5 Sternen · 10 Bewertungen auf Google</a>
+          <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '24px', textAlign: 'center', color: '#0F2A45' }}>Das sagen unsere Familien</h2>
+
+          {/* Klickbare Google-Karte mit echten Sternen */}
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <a href="https://www.google.com/maps/place/Lern%C2%B2" target="_blank" rel="noopener noreferrer" className="review-card">
+              <svg width="22" height="22" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                  <span style={{ color: '#FFD60A', fontSize: '16px', letterSpacing: '1px' }}>★★★★★</span>
+                  <span style={{ fontSize: '15px', fontWeight: '800', color: '#0F2A45' }}>5,0</span>
+                </div>
+                <span style={{ fontSize: '13px', color: '#556678' }}>10+ Bewertungen auf Google · ansehen ↗</span>
+              </div>
+            </a>
           </div>
+
           <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px' }}>
             {[
               { name: 'عمرو ع', text: 'Sehr gute Nachhilfe! Mein Kind hat sich in kurzer Zeit deutlich verbessert. Der Unterricht ist verständlich und freundlich. Wir sind sehr zufrieden!' },
@@ -287,8 +375,7 @@ export default function Home() {
             ))}
           </div>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="#kontakt" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px' }}>Jetzt KOSTENLOS anfragen</a>
-            <a href={waLink(msgs.general)} target="_blank" style={{ backgroundColor: 'transparent', color: '#FFD60A', border: '2px solid #FFD60A', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '15px' }}>WhatsApp</a>
+            <a href="#kontakt" className="cta-primary">Unverbindlich anfragen</a>
           </div>
         </div>
       </section>
@@ -297,61 +384,61 @@ export default function Home() {
       <section id="kontakt" className="section-pad" style={{ padding: '72px 32px', backgroundColor: '#fff' }}>
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
           <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px', textAlign: 'center', fontWeight: '600' }}>Kontakt</p>
-          <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '8px', textAlign: 'center', color: '#0F2A45' }}>Jetzt kostenlos anfragen</h2>
-          <p style={{ fontSize: '15px', color: '#556678', textAlign: 'center', marginBottom: '36px' }}>Füllen Sie das Formular aus — wir melden uns innerhalb von 24 Stunden über WhatsApp.</p>
-          <div style={{ backgroundColor: '#F7F9FC', border: '1px solid #E8EDF2', borderRadius: '16px', padding: '32px' }}>
-            <div className="form-row" style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+          <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '8px', textAlign: 'center', color: '#0F2A45' }}>Unverbindlich anfragen</h2>
+          <p style={{ fontSize: '15px', color: '#556678', lineHeight: '1.6', textAlign: 'center', marginBottom: '32px' }}>
+            Schicken Sie uns Ihre Daten — wir melden uns innerhalb von 24 Stunden bei Ihnen.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="form-row" style={{ display: 'flex', gap: '12px' }}>
               <div style={{ flex: 1 }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>Ihr Name *</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#0F2A45', marginBottom: '6px' }}>Ihr Name</label>
                 <input
                   type="text"
-                  placeholder="z.B. Ahmad Al-Hassan"
                   value={form.name}
-                  onChange={e => setForm({ ...form, name: e.target.value })}
+                  onChange={(e) => setForm({...form, name: e.target.value})}
+                  placeholder="Vor- und Nachname"
                   style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
                 />
               </div>
               <div style={{ flex: 1 }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>Name des Kindes</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#0F2A45', marginBottom: '6px' }}>Name des Kindes</label>
                 <input
                   type="text"
-                  placeholder="z.B. Sara, Klasse 5"
                   value={form.kind}
-                  onChange={e => setForm({ ...form, kind: e.target.value })}
+                  onChange={(e) => setForm({...form, kind: e.target.value})}
+                  placeholder="Vorname"
                   style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
                 />
               </div>
             </div>
-            <div className="form-row" style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+            <div className="form-row" style={{ display: 'flex', gap: '12px' }}>
               <div style={{ flex: 1 }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>Fach / Fächer</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#0F2A45', marginBottom: '6px' }}>Fach</label>
                 <input
                   type="text"
-                  placeholder="z.B. Mathematik, Deutsch"
                   value={form.fach}
-                  onChange={e => setForm({ ...form, fach: e.target.value })}
+                  onChange={(e) => setForm({...form, fach: e.target.value})}
+                  placeholder="z. B. Mathe, Deutsch"
                   style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
                 />
               </div>
               <div style={{ flex: 1 }}>
-                <label style={{ fontSize: '13px', fontWeight: '600', color: '#0F2A45', display: 'block', marginBottom: '6px' }}>WhatsApp / Telefon *</label>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#0F2A45', marginBottom: '6px' }}>Telefon</label>
                 <input
                   type="tel"
-                  placeholder="z.B. 0151 12345678"
                   value={form.tel}
-                  onChange={e => setForm({ ...form, tel: e.target.value })}
+                  onChange={(e) => setForm({...form, tel: e.target.value})}
+                  placeholder="0151 ..."
                   style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', outline: 'none', backgroundColor: '#fff' }}
                 />
               </div>
             </div>
             <button
               onClick={handleSubmit}
+              disabled={!form.name || !form.tel}
               style={{ width: '100%', backgroundColor: form.name && form.tel ? '#FFD60A' : '#E8EDF2', color: form.name && form.tel ? '#0F2A45' : '#AAB', padding: '14px', borderRadius: '8px', border: 'none', fontWeight: '700', fontSize: '15px', cursor: form.name && form.tel ? 'pointer' : 'not-allowed', transition: 'all 0.2s' }}>
               📲 Anfrage über WhatsApp senden
             </button>
-            <p style={{ fontSize: '12px', color: '#8A9BAE', textAlign: 'center', marginTop: '12px' }}>
-              Mit dem Absenden öffnet sich WhatsApp mit Ihrer Anfrage. Wir antworten innerhalb von 24h.
-            </p>
           </div>
         </div>
       </section>
@@ -366,21 +453,9 @@ export default function Home() {
               Beziehen Sie <strong>Wohngeld, Bürgergeld</strong> oder <strong>Kinderzuschuss</strong>? Dann ist die Nachhilfe für Sie zu <strong>100% kostenlos</strong> über das Bildungs- und Teilhabepaket (BuT).
             </p>
           </div>
-          <a href={waLink(msgs.but)} target="_blank" style={{ backgroundColor: '#FFD60A', color: '#0F2A45', padding: '14px 22px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '15px', whiteSpace: 'nowrap' }}>Anspruch kostenlos prüfen</a>
+          <a href="#kontakt" className="cta-primary">Anspruch prüfen</a>
         </div>
       </section>
-
-      {/* PARTNER */}
-      
-<section style={{ padding: '44px 24px', borderBottom: '1px solid #E8EDF2', textAlign: 'center' }}>
-  <p style={{ fontSize: '12px', color: '#3A86FF', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '20px', fontWeight: '600'  }}>Partner</p>
-  <h2 style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '40px', textAlign: 'center', color: '#0F2A45' }}>Unser Partner, der uns vertraut
-
-</h2>
-  <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'block', width: 'fit-content', margin: '0 auto' }}>
-    <img src="/klaroo.png" alt="KlarOo AI" style={{ height: '72px', objectFit: 'contain', display: 'block' }} />
-  </a>
-</section>
 
       {/* FAQ */}
       <section className="section-pad" style={{ background: 'linear-gradient(135deg, #EEF4FF 0%, #F7F9FC 100%)', padding: '72px 24px' }}>
@@ -410,17 +485,20 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer style={{ backgroundColor: '#FFD60A', padding: '44px 24px' }}>
-       <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+        <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <img src="/logo.png" alt="Lern²" style={{ display: 'block', margin: '0 auto 16px', height: '64px', width: '64px', borderRadius: '12px', objectFit: 'cover' }} />
           <p style={{ fontSize: '13px', color: '#0F2A45', marginBottom: '16px', opacity: 0.7 }}>© 2026 Lern² · Kassel · Alle Rechte vorbehalten</p>
           <div className="footer-links" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '14px' }}>
-            <a href={`https://wa.me/${WA}`} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>WhatsApp</a>
-            <a href={IG} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Instagram</a>
-            <a href={FB} target="_blank" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none', fontWeight: '600' }}>Facebook</a>
-            <a href="/impressum" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none' }}>Impressum</a>
-            <a href="/datenschutz" style={{ color: '#0F2A45', fontSize: '14px', textDecoration: 'none' }}>Datenschutz</a>
+            <a href={`https://wa.me/${WA}`} target="_blank" className="footer-link">WhatsApp</a>
+            <a href={IG} target="_blank" className="footer-link">Instagram</a>
+            <a href={FB} target="_blank" className="footer-link">Facebook</a>
+            <a href="/impressum" className="footer-link">Impressum</a>
+            <a href="/datenschutz" className="footer-link">Datenschutz</a>
           </div>
-          <p style={{ fontSize: '12px', color: '#0F2A45', opacity: 0.6 }}>Mit ❤️ entwickelt für die Zukunft unserer Kinder</p>
+          <p style={{ fontSize: '12px', color: '#0F2A45', opacity: 0.6, marginBottom: '10px' }}>Mit ❤️ entwickelt für die Zukunft unserer Kinder</p>
+          <p style={{ fontSize: '11px', color: '#0F2A45', opacity: 0.5 }}>
+            Technologie-Partner: <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ color: '#0F2A45', textDecoration: 'underline', fontWeight: '600' }}>Klaroo AI</a>
+          </p>
         </div>
       </footer>
 
