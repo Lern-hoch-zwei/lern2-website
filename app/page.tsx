@@ -502,9 +502,12 @@ export default function Home() {
             <a href="/datenschutz" className="footer-link">Datenschutz</a>
           </div>
           <p style={{ fontSize: '12px', color: '#0F2A45', opacity: 0.6, marginBottom: '10px' }}>Mit ❤️ entwickelt für die Zukunft unserer Kinder</p>
-          <p style={{ fontSize: '11px', color: '#0F2A45', opacity: 0.5 }}>
-            Technologie-Partner: <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ color: '#0F2A45', textDecoration: 'underline', fontWeight: '600' }}>Klaroo AI</a>
-          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '4px', opacity: 0.7 }}>
+            <span style={{ fontSize: '11px', color: '#0F2A45' }}>Technologie-Partner:</span>
+            <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+              <img src="/klaroo.png" alt="Klaroo AI" style={{ height: '24px', width: 'auto', objectFit: 'contain' }} />
+            </a>
+          </div>
         </div>
       </footer>
 
