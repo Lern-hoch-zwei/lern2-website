@@ -502,10 +502,24 @@ export default function Home() {
             <a href="/datenschutz" className="footer-link">Datenschutz</a>
           </div>
           <p style={{ fontSize: '12px', color: '#0F2A45', opacity: 0.6, marginBottom: '10px' }}>Mit ❤️ entwickelt für die Zukunft unserer Kinder</p>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '4px', opacity: 0.7 }}>
-            <span style={{ fontSize: '11px', color: '#0F2A45' }}>Technologie-Partner:</span>
-            <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
-              <img src="/klaroo.png" alt="Klaroo AI" style={{ height: '24px', width: 'auto', objectFit: 'contain' }} />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginTop: '6px' }}>
+            <span style={{ fontSize: '12px', color: '#0F2A45', opacity: 0.7, fontWeight: '500' }}>Technologie-Partner:</span>
+            <a href="https://klarooai.com/de" target="_blank" rel="noopener noreferrer"
+               style={{
+                 display: 'inline-flex',
+                 alignItems: 'center',
+                 justifyContent: 'center',
+                 backgroundColor: '#fff',
+                 padding: '8px 14px',
+                 borderRadius: '8px',
+                 textDecoration: 'none',
+                 boxShadow: '0 2px 6px rgba(15,42,69,0.12)',
+                 transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+               }}
+               onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(15,42,69,0.2)'; }}
+               onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 6px rgba(15,42,69,0.12)'; }}
+            >
+              <img src="/klaroo.png" alt="Klaroo AI" style={{ height: '32px', width: 'auto', objectFit: 'contain', display: 'block' }} />
             </a>
           </div>
         </div>
