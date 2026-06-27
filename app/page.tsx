@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import LanguageDropdown from "./components/LanguageDropdown";
+import { Clock, BookOpen, HelpCircle, Languages, Frown, Users, Hand, ClipboardList, GraduationCap } from "lucide-react";
 
 const WA = "4915679576256";
 const IG = "https://www.instagram.com/lern_hoch_zwei";
@@ -219,12 +220,12 @@ export default function Home() {
           <h2 style={{ fontSize: 'clamp(22px, 3vw, 36px)', fontWeight: '800', letterSpacing: '-1px', marginBottom: '40px', textAlign: 'center', color: '#0F2A45' }}>Viele Eltern stehen vor denselben Herausforderungen.</h2>
           <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px' }}>
             {[
-              { icon: '⏰', text: 'Sie haben keine Zeit, Ihrem Kind bei den Hausaufgaben zu helfen?' },
-              { icon: '📚', text: 'Sie verstehen den Schulstoff selbst nicht mehr?' },
-              { icon: '🤷', text: 'Sie wissen nicht, wo Sie anfangen sollen?' },
-              { icon: '🌍', text: 'Deutsch ist nicht Ihre Muttersprache und Sie können nicht helfen?' },
-              { icon: '😟', text: 'Ihr Kind versteht den Stoff in der Schule nicht mehr?' },
-              { icon: '👨‍🏫', text: 'Der Lehrer hat keine Zeit für individuelle Förderung?' },
+              { Icon: Clock, text: 'Sie haben keine Zeit, Ihrem Kind bei den Hausaufgaben zu helfen?' },
+              { Icon: BookOpen, text: 'Sie verstehen den Schulstoff selbst nicht mehr?' },
+              { Icon: HelpCircle, text: 'Sie wissen nicht, wo Sie anfangen sollen?' },
+              { Icon: Languages, text: 'Deutsch ist nicht Ihre Muttersprache und Sie können nicht helfen?' },
+              { Icon: Frown, text: 'Ihr Kind versteht den Stoff in der Schule nicht mehr?' },
+              { Icon: Users, text: 'Der Lehrer hat keine Zeit für individuelle Förderung?' },
             ].map((p, i) => (
               <div key={i} style={{ backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '12px', padding: '18px', display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
                 <span style={{ fontSize: '22px', flexShrink: 0 }}>{p.icon}</span>
