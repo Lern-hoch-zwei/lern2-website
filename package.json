@@ -23,6 +23,5 @@
     "typescript": "5.2.2",
     "@supabase/supabase-js": "^2.45.4",
     "lucide-react": "^0.469.0",
-    "resend": "^4.0.0"
   }
 }
