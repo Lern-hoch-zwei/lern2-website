@@ -329,7 +329,7 @@ export default function Home() {
 
           {/* Klickbare Google-Karte mit echten Sternen */}
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <a href="https://maps.app.goo.gl/DvRDUa5KvaumETCo6?g_st=ic" target="_blank" rel="noopener noreferrer" className="review-card">
+            <a href="https://www.google.com/maps/place/Lern%C2%B2/@51.3149851,9.2958103,11z/data=!4m8!3m7!1s0xa9148e796413ea5d:0x6e8eac13c724b5cb!8m2!3d51.3148861!4d9.4606148!9m1!1b1!16s%2Fg%2F11xkt5230z?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="review-card">
               <svg width="22" height="22" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
