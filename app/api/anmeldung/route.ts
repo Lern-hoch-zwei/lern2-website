@@ -141,7 +141,6 @@ export async function POST(req: Request) {
       // E-Mail-Fehler nicht weitergeben — Lead ist bereits in DB sicher
     }
 
-    
     return NextResponse.json({ ok: true })
   } catch (e) {
     console.error('anmeldung route error:', e)
