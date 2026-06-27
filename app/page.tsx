@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import LanguageDropdown from "./components/LanguageDropdown";
-import { Clock, BookOpen, HelpCircle, Languages, Frown, Users, Hand, ClipboardList, GraduationCap } from "lucide-react";
+import { Clock, BookOpen, HelpCircle, Languages, Frown, Users, Calendar, GraduationCap } from "lucide-react";
 
 const WA = "4915679576256";
 const IG = "https://www.instagram.com/lern_hoch_zwei";
@@ -273,17 +273,17 @@ export default function Home() {
           <div style={{ position: 'relative' }}>
             <div className="timeline-line" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px', backgroundColor: '#D6E4FF', transform: 'translateX(-50%)', zIndex: 0 }}></div>
             {[
-              { n: '1', Icon: Hand, t: 'Kontaktaufnahme & Erstgespräch', d: 'Sie melden sich bei uns. In einem unverbindlichen Gespräch lernen wir Sie und Ihr Kind kennen, klären die Ziele und beantworten alle Fragen.', side: 'left' },
-              { n: '2', Icon: ClipboardList, t: 'Bedarfsanalyse & Lernplan', d: 'Wir ermitteln die genauen Schwachstellen und erstellen einen individuellen Lernplan, der zu Ihrem Kind passt — mit klaren Schritten und realistischen Zielen.', side: 'right' },
+              { n: '1', Icon: Users, t: 'Kennenlernen & Analyse', d: 'Wir starten mit einem persönlichen Gespräch und einer gründlichen Analyse, um den Lernstand und die Bedürfnisse Ihres Kindes genau zu verstehen.', side: 'right' },
+              { n: '2', Icon: Calendar, t: 'Individueller Lernplan', d: 'Auf Basis der Analyse erstellen wir einen maßgeschneiderten Lernplan, der gezielt Stärken fördert und Schwächen Schritt für Schritt abbaut.', side: 'left' },
               { n: '3', Icon: GraduationCap, t: 'Begleitung & Erfolgskontrolle', d: 'Wir begleiten Ihr Kind kontinuierlich, passen den Plan bei Bedarf an und halten Sie regelmäßig über die Fortschritte auf dem Laufenden.', side: 'right' },
             ].map((s, i) => (
               <div key={i} className="timeline-card" style={{ position: 'relative', display: 'flex', justifyContent: s.side === 'left' ? 'flex-start' : 'flex-end', marginBottom: '36px', zIndex: 1 }}>
-                <div className="timeline-num" style={{ position: 'absolute', left: '50%', top: '12px', transform: 'translateX(-50%)', width: '44px', height: '44px', borderRadius: '50%', border: '2px solid #3A86FF', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2, fontSize: '18px', fontWeight: '800', color: '#3A86FF', boxShadow: '0 2px 8px rgba(58,134,255,0.15)' }}>{s.n}</div>
-                <div className="timeline-inner" style={{ width: '44%', backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '14px', padding: '24px', boxShadow: '0 4px 16px rgba(58,134,255,0.08)' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
-                    <s.Icon size={22} color="#3A86FF" strokeWidth={2} />
+                <div className="timeline-num" style={{ position: 'absolute', left: '50%', top: '40px', transform: 'translateX(-50%)', width: '40px', height: '28px', borderRadius: '14px', border: '1.5px solid #3A86FF', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2, fontSize: '13px', fontWeight: '700', color: '#3A86FF' }}>{s.n}</div>
+                <div className="timeline-inner" style={{ width: '44%', backgroundColor: '#fff', border: '1.5px solid #3A86FF', borderRadius: '14px', padding: '28px 24px', textAlign: 'center' }}>
+                  <div style={{ width: '52px', height: '52px', borderRadius: '12px', backgroundColor: '#EEF4FF', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
+                    <s.Icon size={26} color="#3A86FF" strokeWidth={2} />
                   </div>
-                  <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '8px', color: '#0F2A45' }}>{s.t}</h3>
+                  <h3 style={{ fontSize: '17px', fontWeight: '700', marginBottom: '10px', color: '#0F2A45' }}>{s.t}</h3>
                   <p style={{ fontSize: '14px', color: '#556678', lineHeight: '1.7', margin: 0 }}>{s.d}</p>
                 </div>
               </div>
