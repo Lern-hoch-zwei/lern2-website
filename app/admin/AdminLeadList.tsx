@@ -145,20 +145,4 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
                     <button
                       onClick={() => saveNote(lead.id)}
                       disabled={savingId === lead.id}
-                      style={{ padding: '8px 14px', borderRadius: '6px', border: 'none', backgroundColor: '#FFD60A', color: '#0F2A45', fontWeight: '700', fontSize: '12px', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}>
-                      Speichern
-                    </button>
-                  </div>
-                )}
-              </div>
-            )
-          })
-        ) : (
-          <p style={{ padding: '20px', color: '#8A9BAE', textAlign: 'center' }}>
-            {search ? 'Keine Treffer für diese Suche.' : 'Noch keine Anmeldungen vorhanden.'}
-          </p>
-        )}
-      </div>
-    </div>
-  )
-}
+                      style={{ padding: '8px 14px', borderRadius:
