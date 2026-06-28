@@ -37,6 +37,7 @@ type Body = {
   anmerkungen?: string
   datenschutz_akzeptiert?: boolean
   kommunikation?: string
+  sprache_familie?: string[]
   // Meta
   lang?: string
 }
