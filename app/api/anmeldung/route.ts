@@ -133,13 +133,14 @@ export async function POST(req: Request) {
     `
 
     try {
-      await resend.emails.send({
+      const sendResult = await resend.emails.send({
         from: 'Lern² Website <info@lern2.com>',
         to: TO_EMAIL,
         replyTo: row.email || undefined,
         subject: `Neue Anmeldung: ${row.vorname_eltern} ${row.nachname_eltern} (${row.vorname_kind || 'Kind'})`,
         html,
       })
+      console.log('resend send result:', JSON.stringify(sendResult))
     } catch (mailErr) {
       console.error('resend email error:', mailErr)
       // E-Mail-Fehler nicht weitergeben — Lead ist bereits in DB sicher
