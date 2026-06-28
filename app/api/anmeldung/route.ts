@@ -136,7 +136,7 @@ export async function POST(req: Request) {
       const sendResult = await resend.emails.send({
         from: 'Lern² Website <info@lern2.com>',
         to: TO_EMAIL,
-        replyTo: row.email || undefined,
+        replyTo: row.email && row.email.includes('@') ? row.email : undefined,
         subject: `Neue Anmeldung: ${row.vorname_eltern} ${row.nachname_eltern} (${row.vorname_kind || 'Kind'})`,
         html,
       })
