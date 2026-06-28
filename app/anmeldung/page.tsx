@@ -27,13 +27,16 @@ type FormData = {
   bewilligungsbescheid: string;
   anmerkungen: string;
   kommunikation: string;
+  sprache_familie: string[];
   datenschutz_akzeptiert: boolean;
+};
 };
 
 const empty: FormData = {
   vorname_eltern: '', nachname_eltern: '', telefon: '', email: '', strasse: '', plz_ort: '',
   vorname_kind: '', nachname_kind: '', alter_kind: '', klassenstufe: '', schule: '', faecher: '', schwierigkeiten: '',
   unterrichtsform: '', zeiten: '', staatl_unterstuetzung: '', bewilligungsbescheid: '', anmerkungen: '', kommunikation: '',
+  sprache_familie: [],
   datenschutz_akzeptiert: false,
 };
 
@@ -44,7 +47,11 @@ export default function Anmeldung() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const upd = (k: keyof FormData, v: string | boolean) => setForm({ ...form, [k]: v });
+  const upd = (k: keyof FormData, v: string | boolean) => setForm({ ...form, [k]: v as any });
+  const toggleSprache = (s: string) => {
+    const has = form.sprache_familie.includes(s);
+    setForm({ ...form, sprache_familie: has ? form.sprache_familie.filter(x => x !== s) : [...form.sprache_familie, s] });
+  };
 
   const step1Valid = !!(form.vorname_eltern && form.nachname_eltern && form.telefon && form.email);
   const step2Valid = !!(form.vorname_kind && form.klassenstufe);
