@@ -87,6 +87,8 @@ export async function POST(req: Request) {
       anmerkungen: cap(body.anmerkungen, 2000),
       datenschutz_akzeptiert: true,
       kommunikation: cap(body.kommunikation, 100),
+      sprache_familie: Array.isArray(body.sprache_familie) ? body.sprache_familie.join(', ') : null,
+    }
     }
 
     const { error: dbError } = await supabase.from('leads').insert(row)
