@@ -101,6 +101,7 @@ export async function POST(req: Request) {
     const html = `
       <h2>📥 Neue Anmeldung über die Website</h2>
       <p><strong>Eingegangen:</strong> ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}</p>
+      ${row.sprache_familie ? `<div style="background:#FFF8DC;border-left:4px solid #FFD60A;padding:12px 16px;margin:16px 0;border-radius:4px;"><strong>🌐 Familiensprache:</strong> ${row.sprache_familie}</div>` : ''}
       <h3>👨‍👩‍👧 Eltern</h3>
       <ul>
         <li><strong>Name:</strong> ${row.vorname_eltern} ${row.nachname_eltern}</li>
