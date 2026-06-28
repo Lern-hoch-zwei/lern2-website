@@ -16,7 +16,7 @@ export default async function AdminPage() {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  const { data: leads } = await supabase
+  const { data: leads, error: leadsError } = await supabase
     .from('leads')
     .select('*')
     .order('created_at', { ascending: false })
@@ -30,6 +30,13 @@ export default async function AdminPage() {
         </h1>
         <p style={{ fontSize: '13px', color: '#8A9BAE', marginBottom: '24px' }}>
           Eingeloggt als: {user?.email || 'unbekannt'}
+          </p>
+        {leadsError && (
+          <p style={{ color: 'red', fontSize: '13px', backgroundColor: '#FFF5F5', padding: '10px', borderRadius: '8px' }}>
+            Fehler beim Laden: {leadsError.message}
+          </p>
+        )}
+        <p style={{ display: 'none' }}>
         </p>
 
         <div style={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #D6E4FF', padding: '8px' }}>
