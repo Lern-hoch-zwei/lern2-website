@@ -30,7 +30,6 @@ type FormData = {
   sprache_familie: string[];
   datenschutz_akzeptiert: boolean;
 };
-};
 
 const empty: FormData = {
   vorname_eltern: '', nachname_eltern: '', telefon: '', email: '', strasse: '', plz_ort: '',
