@@ -89,7 +89,7 @@ export async function POST(req: Request) {
       kommunikation: cap(body.kommunikation, 100),
       sprache_familie: Array.isArray(body.sprache_familie) ? body.sprache_familie.join(', ') : null,
     }
-    }
+    
 
     const { error: dbError } = await supabase.from('leads').insert(row)
     if (dbError) {
