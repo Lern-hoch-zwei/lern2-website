@@ -313,6 +313,37 @@ export default function Anmeldung() {
               </div>
 
               <div style={{ marginBottom: '20px' }}>
+                <label style={labelStyle}>Welche Sprache(n) sprechen Sie zuhause?</label>
+                <p style={{ fontSize: '12px', color: '#8A9BAE', marginBottom: '10px', marginTop: '-2px' }}>Mehrfachauswahl möglich</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '8px' }}>
+                  {['Deutsch', 'Arabisch', 'Türkisch', 'Farsi / Dari', 'Andere'].map((s) => {
+                    const active = form.sprache_familie.includes(s);
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => toggleSprache(s)}
+                        style={{
+                          padding: '10px 14px',
+                          borderRadius: '8px',
+                          border: active ? '2px solid #3A86FF' : '1px solid #D6E4FF',
+                          backgroundColor: active ? '#EEF4FF' : '#fff',
+                          color: active ? '#0F2A45' : '#556678',
+                          fontSize: '14px',
+                          fontWeight: active ? '700' : '500',
+                          cursor: 'pointer',
+                          fontFamily: "'Inter', sans-serif",
+                          textAlign: 'center',
+                          transition: 'all 0.15s ease',
+                        }}>
+                        {active ? '✓ ' : ''}{s}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div style={{ marginBottom: '20px' }}>
                 <label style={labelStyle}>Weitere Anmerkungen? (optional)</label>
                 <textarea value={form.anmerkungen} onChange={(e) => upd('anmerkungen', e.target.value)} rows={3} style={{ ...inputStyle, resize: 'vertical' }} />
               </div>
