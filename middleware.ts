@@ -24,7 +24,8 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
 
   const path = request.nextUrl.pathname
-  const isLoginPage = path === '/admin/login'
+  const isLoginPage = path === '/admin/login' || path === '/lk/login'
+  const isLkCallback = path.startsWith('/lk/auth/callback')
   const isCallback = path.startsWith('/admin/auth/callback')
 
   if (!user && path.startsWith('/admin') && !isLoginPage && !isCallback) {
@@ -33,9 +34,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  if (!user && path.startsWith('/lk') && !isLoginPage && !isLkCallback) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/lk/login'
+    return NextResponse.redirect(url)
+  }
+
   return response
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/lk/:path*'],
 }
