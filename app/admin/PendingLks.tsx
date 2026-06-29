@@ -12,15 +12,27 @@ type PendingLk = {
 export default function PendingLks({ initialPending }: { initialPending: PendingLk[] }) {
   const [pending, setPending] = useState(initialPending)
   const [savingId, setSavingId] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const approve = async (id: string) => {
     setSavingId(id)
-    await fetch('/api/admin/lk-approve', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
-    })
-    setPending(pending.filter(p => p.id !== id))
+    setError(null)
+    try {
+      const res = await fetch('/api/admin/lk-approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      })
+      const data = await res.json()
+      if (!data.ok) {
+        setError('Freischalten fehlgeschlagen: ' + (data.error || 'unbekannter Fehler'))
+        setSavingId(null)
+        return
+      }
+      setPending(pending.filter(p => p.id !== id))
+    } catch {
+      setError('Verbindungsfehler beim Freischalten.')
+    }
     setSavingId(null)
   }
 
@@ -31,6 +43,9 @@ export default function PendingLks({ initialPending }: { initialPending: Pending
       <h2 style={{ fontSize: '15px', fontWeight: '800', color: '#0F2A45', marginBottom: '10px' }}>
         ⏳ Wartende LK-Registrierungen ({pending.length})
       </h2>
+      {error && (
+        <p style={{ color: '#B91C1C', fontSize: '13px', marginBottom: '10px', backgroundColor: '#FFF5F5', padding: '8px', borderRadius: '6px' }}>{error}</p>
+      )}
       {pending.map((lk) => (
         <div key={lk.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderTop: '1px solid rgba(255,214,10,0.3)' }}>
           <div>
