@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { createBrowserClient } from '@supabase/ssr'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(() => typeof window !== 'undefined' ? localStorage.getItem('lern2_admin_email') || '' : '')
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
@@ -23,7 +23,10 @@ export default function LoginPage() {
     })
     setLoading(false)
     if (error) setError(error.message)
-    else setSent(true)
+    else {
+      localStorage.setItem('lern2_admin_email', email)
+      setSent(true)
+    }
   }
 
   return (
