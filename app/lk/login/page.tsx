@@ -51,6 +51,7 @@ export default function LkLoginPage() {
               style={{ width: '100%', backgroundColor: '#FFD60A', color: '#0F2A45', padding: '12px', borderRadius: '8px', border: 'none', fontWeight: '700', fontSize: '14px', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}>
               {loading ? 'Sende...' : 'Login-Link senden'}
             </button>
+            <a href="/lk/register" style={{ display: 'block', textAlign: 'center', marginTop: '14px', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>Noch kein Zugang? Hier registrieren</a>
           </form>
         )}
       </div>
