@@ -1,6 +1,8 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import LkKalender from './LkKalender'
+import LogoutButton from '../components/LogoutButton'
+import InactivityLogout from '../components/InactivityLogout'
 
 export default async function LkPage() {
   const cookieStore = await cookies()
@@ -26,6 +28,7 @@ export default async function LkPage() {
   if (!lehrkraft) {
     return (
       <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '20px' }}>
+        <InactivityLogout loginPath="/lk/login" />
         <div style={{ textAlign: 'center', maxWidth: '380px' }}>
           <p style={{ fontSize: '16px', color: '#0F2A45', fontWeight: '700' }}>Kein Lehrkraft-Profil gefunden.</p>
           <p style={{ fontSize: '14px', color: '#8A9BAE', marginTop: '8px', lineHeight: '1.6' }}>
@@ -34,6 +37,9 @@ export default async function LkPage() {
           <a href="/lk/register" style={{ display: 'inline-block', marginTop: '16px', backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>
             Jetzt registrieren
           </a>
+          <div style={{ marginTop: '16px' }}>
+            <LogoutButton loginPath="/lk/login" />
+          </div>
         </div>
       </main>
     )
@@ -42,11 +48,15 @@ export default async function LkPage() {
   if (!lehrkraft.aktiv) {
     return (
       <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '20px' }}>
+        <InactivityLogout loginPath="/lk/login" />
         <div style={{ textAlign: 'center', maxWidth: '380px' }}>
           <p style={{ fontSize: '16px', color: '#0F2A45', fontWeight: '700' }}>⏳ Dein Zugang wartet auf Freischaltung</p>
           <p style={{ fontSize: '14px', color: '#8A9BAE', marginTop: '8px', lineHeight: '1.6' }}>
             Die Verwaltung schaltet deinen Account in Kürze frei. Du bekommst dann Bescheid.
           </p>
+          <div style={{ marginTop: '16px' }}>
+            <LogoutButton loginPath="/lk/login" />
+          </div>
         </div>
       </main>
     )
@@ -62,13 +72,19 @@ export default async function LkPage() {
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '24px' }}>
+      <InactivityLogout loginPath="/lk/login" />
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '22px', fontWeight: '800', color: '#0F2A45', marginBottom: '4px' }}>
-          Lern² Kalender
-        </h1>
-        <p style={{ fontSize: '13px', color: '#8A9BAE', marginBottom: '24px' }}>
-          {lehrkraft.name} · {user?.email}
-        </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+          <div>
+            <h1 style={{ fontSize: '22px', fontWeight: '800', color: '#0F2A45', marginBottom: '4px' }}>
+              Lern² Kalender
+            </h1>
+            <p style={{ fontSize: '13px', color: '#8A9BAE' }}>
+              {lehrkraft.name} · {user?.email}
+            </p>
+          </div>
+          <LogoutButton loginPath="/lk/login" />
+        </div>
 
         <LkKalender lehrkraftId={lehrkraft.id} initialTermine={termine || []} />
       </div>
