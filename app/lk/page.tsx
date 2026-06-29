@@ -21,15 +21,31 @@ export default async function LkPage() {
     .from('lehrkraefte')
     .select('*')
     .eq('email', user?.email)
-    .single()
+    .maybeSingle()
 
   if (!lehrkraft) {
     return (
       <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '20px' }}>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center', maxWidth: '380px' }}>
           <p style={{ fontSize: '16px', color: '#0F2A45', fontWeight: '700' }}>Kein Lehrkraft-Profil gefunden.</p>
-          <p style={{ fontSize: '14px', color: '#8A9BAE', marginTop: '8px' }}>
-            Eingeloggt als: {user?.email || 'unbekannt'}. Bitte wende dich an die Verwaltung.
+          <p style={{ fontSize: '14px', color: '#8A9BAE', marginTop: '8px', lineHeight: '1.6' }}>
+            Eingeloggt als: {user?.email || 'unbekannt'}.
+          </p>
+          <a href="/lk/register" style={{ display: 'inline-block', marginTop: '16px', backgroundColor: '#FFD60A', color: '#0F2A45', padding: '10px 20px', borderRadius: '8px', textDecoration: 'none', fontWeight: '700', fontSize: '14px' }}>
+            Jetzt registrieren
+          </a>
+        </div>
+      </main>
+    )
+  }
+
+  if (!lehrkraft.aktiv) {
+    return (
+      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '20px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '380px' }}>
+          <p style={{ fontSize: '16px', color: '#0F2A45', fontWeight: '700' }}>⏳ Dein Zugang wartet auf Freischaltung</p>
+          <p style={{ fontSize: '14px', color: '#8A9BAE', marginTop: '8px', lineHeight: '1.6' }}>
+            Die Verwaltung schaltet deinen Account in Kürze frei. Du bekommst dann Bescheid.
           </p>
         </div>
       </main>
