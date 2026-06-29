@@ -24,17 +24,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'Bitte Name und eine gültige E-Mail angeben.' }, { status: 400 })
     }
 
-    const { data: existing } = await supabase
+    const { data: existing, error: selectError } = await supabase
       .from('lehrkraefte')
       .select('id, aktiv')
       .eq('email', email)
       .maybeSingle()
 
+    if (selectError) {
+      console.error('lehrkraefte select error:', selectError)
+      return NextResponse.json({ ok: false, error: 'db_select: ' + selectError.message }, { status: 500 })
+    }
+
     if (existing) {
-      if (existing.aktiv) {
-        return NextResponse.json({ ok: true, status: 'already_active' })
-      }
-      return NextResponse.json({ ok: true, status: 'pending' })
+      return NextResponse.json({ ok: true, status: existing.aktiv ? 'already_active' : 'pending' })
     }
 
     const { error: insertError } = await supabase
@@ -43,7 +45,7 @@ export async function POST(req: Request) {
 
     if (insertError) {
       console.error('lehrkraefte insert error:', insertError)
-      return NextResponse.json({ ok: false, error: 'db' }, { status: 500 })
+      return NextResponse.json({ ok: false, error: 'db_insert: ' + insertError.message }, { status: 500 })
     }
 
     try {
@@ -64,8 +66,8 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ ok: true, status: 'new' })
-  } catch (e) {
+  } catch (e: any) {
     console.error('lk-register route error:', e)
-    return NextResponse.json({ ok: false, error: 'unknown' }, { status: 500 })
+    return NextResponse.json({ ok: false, error: 'unknown: ' + (e?.message || '') }, { status: 500 })
   }
 }
