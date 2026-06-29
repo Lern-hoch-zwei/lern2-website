@@ -31,6 +31,7 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
   const [termine, setTermine] = useState(initialTermine)
   const [showForm, setShowForm] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
   const [form, setForm] = useState({ schueler_name: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
 
   const addTermin = async () => {
@@ -57,6 +58,21 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, status }),
     })
+  }
+
+  const deleteTermin = async (id: string) => {
+    if (!confirm('Diesen Termin wirklich löschen?')) return
+    setDeletingId(id)
+    const res = await fetch('/api/lk/termin', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    })
+    const data = await res.json()
+    setDeletingId(null)
+    if (data.ok) {
+      setTermine(termine.filter(t => t.id !== id))
+    }
   }
 
   return (
@@ -106,18 +122,26 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
                       {termin.fach && <> · {termin.fach}</>}
                     </p>
                   </div>
-                  <select
-                    value={termin.status}
-                    onChange={(e) => updateStatus(termin.id, e.target.value)}
-                    style={{
-                      padding: '6px 10px', borderRadius: '6px', border: `1.5px solid ${info.color}`,
-                      color: info.color, fontWeight: '700', fontSize: '12px',
-                      backgroundColor: '#fff', cursor: 'pointer', fontFamily: "'Inter', sans-serif",
-                    }}>
-                    {STATUS_OPTIONS.map(s => (
-                      <option key={s.value} value={s.value}>{s.label}</option>
-                    ))}
-                  </select>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <select
+                      value={termin.status}
+                      onChange={(e) => updateStatus(termin.id, e.target.value)}
+                      style={{
+                        padding: '6px 10px', borderRadius: '6px', border: `1.5px solid ${info.color}`,
+                        color: info.color, fontWeight: '700', fontSize: '12px',
+                        backgroundColor: '#fff', cursor: 'pointer', fontFamily: "'Inter', sans-serif",
+                      }}>
+                      {STATUS_OPTIONS.map(s => (
+                        <option key={s.value} value={s.value}>{s.label}</option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={() => deleteTermin(termin.id)}
+                      disabled={deletingId === termin.id}
+                      style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #FECACA', backgroundColor: '#FFF5F5', color: '#B91C1C', fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}>
+                      🗑
+                    </button>
+                  </div>
                 </div>
               </div>
             )
