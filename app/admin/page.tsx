@@ -31,7 +31,7 @@ export default async function AdminPage() {
         </h1>
         <p style={{ fontSize: '13px', color: '#8A9BAE', marginBottom: '24px' }}>
           Eingeloggt als: {user?.email || 'unbekannt'}
-        </p>
+        </p><a href="/api/admin/export" style={{ display: 'inline-block', marginBottom: '16px', padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>⬇️ Als CSV exportieren</a>
 
         <AdminLeadList initialLeads={leads || []} />
       </div>
