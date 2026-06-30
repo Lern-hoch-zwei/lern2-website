@@ -26,6 +26,12 @@ function statusInfo(status: string) {
 }
 
 const inputStyle = { padding: '10px 12px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', fontFamily: "'Inter', sans-serif" }
+const selectStyle = {
+  ...inputStyle, padding: '10px 30px 10px 14px',
+  appearance: 'none' as const, WebkitAppearance: 'none' as const, MozAppearance: 'none' as const,
+  backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A86FF' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>")`,
+  backgroundRepeat: 'no-repeat' as const, backgroundPosition: 'right 10px center', backgroundSize: '12px',
+}
 
 export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftId: string; initialTermine: Termin[] }) {
   const [termine, setTermine] = useState(initialTermine)
@@ -51,13 +57,27 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
     }
   }
 
+  const [statusError, setStatusError] = useState<string | null>(null)
+
   const updateStatus = async (id: string, status: string) => {
+    const previous = termine.find(t => t.id === id)?.status
     setTermine(termine.map(t => t.id === id ? { ...t, status } : t))
-    await fetch('/api/lk/termin', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, status }),
-    })
+    setStatusError(null)
+    try {
+      const res = await fetch('/api/lk/termin', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status }),
+      })
+      const data = await res.json()
+      if (!data.ok) {
+        setTermine(termine.map(t => t.id === id ? { ...t, status: previous || t.status } : t))
+        setStatusError('Status konnte nicht gespeichert werden. Bitte erneut versuchen.')
+      }
+    } catch {
+      setTermine(termine.map(t => t.id === id ? { ...t, status: previous || t.status } : t))
+      setStatusError('Verbindungsfehler. Status wurde nicht gespeichert.')
+    }
   }
 
   const deleteTermin = async (id: string) => {
@@ -95,7 +115,7 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
             <input type="time" value={form.uhrzeit}
               onChange={(e) => setForm({ ...form, uhrzeit: e.target.value })} style={{ ...inputStyle, flex: 1 }} />
             <select value={form.dauer_minuten}
-              onChange={(e) => setForm({ ...form, dauer_minuten: e.target.value })} style={{ ...inputStyle, flex: 1 }}>
+              onChange={(e) => setForm({ ...form, dauer_minuten: e.target.value })} style={{ ...selectStyle, flex: 1 }}>
               <option value="45">45 Min</option>
               <option value="90">90 Min</option>
               <option value="120">120 Min</option>
@@ -105,6 +125,12 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
             style={{ backgroundColor: '#0F2A45', color: '#fff', padding: '10px', borderRadius: '8px', border: 'none', fontWeight: '700', fontSize: '14px', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}>
             {saving ? 'Speichert...' : 'Termin speichern'}
           </button>
+        </div>
+      )}
+
+      {statusError && (
+        <div style={{ marginBottom: '12px', padding: '10px 14px', backgroundColor: '#FFF5F5', border: '1px solid #FECACA', borderRadius: '8px', fontSize: '13px', color: '#B91C1C' }}>
+          {statusError}
         </div>
       )}
 
@@ -127,9 +153,12 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
                       value={termin.status}
                       onChange={(e) => updateStatus(termin.id, e.target.value)}
                       style={{
-                        padding: '6px 10px', borderRadius: '6px', border: `1.5px solid ${info.color}`,
+                        padding: '8px 30px 8px 14px', borderRadius: '6px', border: `1.5px solid ${info.color}`,
                         color: info.color, fontWeight: '700', fontSize: '12px',
                         backgroundColor: '#fff', cursor: 'pointer', fontFamily: "'Inter', sans-serif",
+                        appearance: 'none', WebkitAppearance: 'none', MozAppearance: 'none',
+                        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${encodeURIComponent(info.color)}' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>")`,
+                        backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center', backgroundSize: '12px',
                       }}>
                       {STATUS_OPTIONS.map(s => (
                         <option key={s.value} value={s.value}>{s.label}</option>
@@ -138,7 +167,7 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
                     <button
                       onClick={() => deleteTermin(termin.id)}
                       disabled={deletingId === termin.id}
-                      style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #FECACA', backgroundColor: '#FFF5F5', color: '#B91C1C', fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}>
+                      style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #FECACA', backgroundColor: '#FFF5F5', color: '#B91C1C', fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}>
                       🗑
                     </button>
                   </div>
