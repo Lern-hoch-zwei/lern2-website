@@ -26,6 +26,7 @@ export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
   const isLoginPage = path === '/admin/login' || path === '/lk/login'
   const isLkCallback = path.startsWith('/lk/auth/callback')
+  const isLkRegister = path === '/lk/register'
   const isCallback = path.startsWith('/admin/auth/callback')
 
   if (!user && path.startsWith('/admin') && !isLoginPage && !isCallback) {
@@ -34,7 +35,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  if (!user && path.startsWith('/lk') && !isLoginPage && !isLkCallback) {
+  if (!user && path.startsWith('/lk') && !isLoginPage && !isLkCallback && !isLkRegister) {
     const url = request.nextUrl.clone()
     url.pathname = '/lk/login'
     return NextResponse.redirect(url)
