@@ -20,7 +20,12 @@ export async function GET(request: Request) {
         },
       }
     )
-    await supabase.auth.exchangeCodeForSession(code)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    if (error) {
+      return NextResponse.redirect(`${origin}/admin/login?error=expired_link`)
+    }
+  } else {
+    return NextResponse.redirect(`${origin}/admin/login?error=missing_code`)
   }
 
   return NextResponse.redirect(`${origin}/admin`)
