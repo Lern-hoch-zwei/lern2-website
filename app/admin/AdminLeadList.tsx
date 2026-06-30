@@ -9,15 +9,36 @@ type Lead = {
   vorname_eltern?: string
   nachname_eltern?: string
   vorname_kind?: string
+  nachname_kind?: string
   telefon?: string
+  email?: string
+  strasse?: string
+  plz_ort?: string
+  alter_kind?: number
+  klassenstufe?: string
+  schule?: string
   fach?: string
   faecher?: string
+  schwierigkeiten?: string
+  unterrichtsform?: string
+  zeiten?: string
+  staatl_unterstuetzung?: string
+  bewilligungsbescheid?: string
+  kommunikation?: string
+  anmerkungen?: string
+  geschlecht?: string
+  genehmigungsschein_abgegeben?: boolean
+  genehmigungsdatum?: string
+  erneute_genehmigung_am?: string
+  erneute_abgegeben?: boolean
   status?: string
   notizen?: string
   sprache_familie?: string
   lk1?: string
   lk2?: string
   lk3?: string
+  lang?: string
+  source?: string
   created_at: string
 }
 
@@ -38,11 +59,15 @@ function statusColor(status: string) {
   return STATUS_OPTIONS.find(s => s.value === status)?.color || '#8A9BAE'
 }
 
+const dash = (v: any) => (v === null || v === undefined || v === '' ? '—' : String(v))
+const yesNo = (v: any) => (v === true ? 'Ja' : v === false ? 'Nein' : '—')
+const dateFmt = (v?: string) => (v ? new Date(v).toLocaleDateString('de-DE') : '—')
+
 export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }) {
   const [leads, setLeads] = useState(initialLeads)
   const [search, setSearch] = useState('')
   const [savingId, setSavingId] = useState<string | null>(null)
-  const [openPanelId, setOpenPanelId] = useState<{ id: string; panel: 'notiz' | 'lk' } | null>(null)
+  const [openPanelId, setOpenPanelId] = useState<{ id: string; panel: 'notiz' | 'lk' | 'details' } | null>(null)
   const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({})
   const [lkDrafts, setLkDrafts] = useState<Record<string, { lk1: string; lk2: string; lk3: string }>>({})
 
@@ -69,7 +94,7 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
     setOpenPanelId(null)
   }
 
-  const togglePanel = (id: string, panel: 'notiz' | 'lk', lead: Lead) => {
+  const togglePanel = (id: string, panel: 'notiz' | 'lk' | 'details', lead: Lead) => {
     const isOpen = openPanelId?.id === id && openPanelId?.panel === panel
     setOpenPanelId(isOpen ? null : { id, panel })
     if (panel === 'notiz' && noteDrafts[id] === undefined) {
@@ -84,18 +109,32 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
     if (!search.trim()) return true
     const haystack = [
       l.name, l.vorname_eltern, l.nachname_eltern, l.vorname_kind, l.kind,
-      l.tel, l.telefon, l.fach, l.faecher, l.lk1, l.lk2, l.lk3,
+      l.tel, l.telefon, l.fach, l.faecher, l.lk1, l.lk2, l.lk3, l.schule,
     ].filter(Boolean).join(' ').toLowerCase()
     return haystack.includes(search.toLowerCase())
   })
 
   const lkInputStyle = { flex: 1, padding: '8px 10px', borderRadius: '6px', border: '1px solid #D6E4FF', fontSize: '13px', fontFamily: "'Inter', sans-serif" }
 
+  const DetailRow = ({ label, value }: { label: string; value: any }) => (
+    <div style={{ padding: '6px 0', borderBottom: '1px solid #F0F4F8', display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+      <span style={{ fontSize: '12px', color: '#8A9BAE', flexShrink: 0 }}>{label}</span>
+      <span style={{ fontSize: '13px', color: '#0F2A45', fontWeight: '500', textAlign: 'right' }}>{value}</span>
+    </div>
+  )
+
+  const DetailGroup = ({ title, children }: { title: string; children: React.ReactNode }) => (
+    <div style={{ marginBottom: '14px' }}>
+      <p style={{ fontSize: '11px', fontWeight: '700', color: '#3A86FF', letterSpacing: '0.5px', textTransform: 'uppercase', marginBottom: '6px' }}>{title}</p>
+      {children}
+    </div>
+  )
+
   return (
     <div>
       <input
         type="text"
-        placeholder="Suchen nach Name, Telefon, Fach, LK..."
+        placeholder="Suchen nach Name, Telefon, Fach, Schule, LK..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', border: '1px solid #D6E4FF', fontSize: '14px', marginBottom: '16px', fontFamily: "'Inter', sans-serif", backgroundColor: '#fff' }}
@@ -116,6 +155,7 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
             const lkListe = [lead.lk1, lead.lk2, lead.lk3].filter(Boolean)
             const noteOpen = openPanelId?.id === lead.id && openPanelId?.panel === 'notiz'
             const lkOpen = openPanelId?.id === lead.id && openPanelId?.panel === 'lk'
+            const detailsOpen = openPanelId?.id === lead.id && openPanelId?.panel === 'details'
             const lkDraft = lkDrafts[lead.id] ?? { lk1: '', lk2: '', lk3: '' }
 
             return (
@@ -152,6 +192,15 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
                       ))}
                     </select>
                     <button
+                      onClick={() => togglePanel(lead.id, 'details', lead)}
+                      style={{
+                        padding: '6px 10px', borderRadius: '6px', border: '1px solid #D6E4FF',
+                        backgroundColor: detailsOpen ? '#0F2A45' : '#fff', color: detailsOpen ? '#fff' : '#0F2A45',
+                        fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: "'Inter', sans-serif",
+                      }}>
+                      {detailsOpen ? '✕ Schließen' : '🔍 Details'}
+                    </button>
+                    <button
                       onClick={() => togglePanel(lead.id, 'lk', lead)}
                       style={{
                         padding: '6px 10px', borderRadius: '6px', border: '1px solid #D6E4FF',
@@ -171,6 +220,58 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
                     </button>
                   </div>
                 </div>
+
+                {detailsOpen && (
+                  <div style={{ marginTop: '14px', backgroundColor: '#F7F9FC', borderRadius: '10px', padding: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+                    <DetailGroup title="Eltern">
+                      <DetailRow label="Vorname" value={dash(lead.vorname_eltern)} />
+                      <DetailRow label="Nachname" value={dash(lead.nachname_eltern)} />
+                      <DetailRow label="Telefon" value={dash(lead.telefon || lead.tel)} />
+                      <DetailRow label="E-Mail" value={dash(lead.email)} />
+                      <DetailRow label="Straße" value={dash(lead.strasse)} />
+                      <DetailRow label="PLZ/Ort" value={dash(lead.plz_ort)} />
+                    </DetailGroup>
+
+                    <DetailGroup title="Kind">
+                      <DetailRow label="Vorname" value={dash(lead.vorname_kind || lead.kind)} />
+                      <DetailRow label="Nachname" value={dash(lead.nachname_kind)} />
+                      <DetailRow label="Alter" value={dash(lead.alter_kind)} />
+                      <DetailRow label="Klasse" value={dash(lead.klassenstufe)} />
+                      <DetailRow label="Schule" value={dash(lead.schule)} />
+                      <DetailRow label="Geschlecht" value={dash(lead.geschlecht)} />
+                      <DetailRow label="Fächer" value={dash(lead.faecher || lead.fach)} />
+                    </DetailGroup>
+
+                    <DetailGroup title="Bedarf">
+                      <DetailRow label="Schwierigkeiten" value={dash(lead.schwierigkeiten)} />
+                      <DetailRow label="Unterrichtsform" value={dash(lead.unterrichtsform)} />
+                      <DetailRow label="Zeiten" value={dash(lead.zeiten)} />
+                      <DetailRow label="Kommunikation" value={dash(lead.kommunikation)} />
+                    </DetailGroup>
+
+                    <DetailGroup title="BuT / Förderung">
+                      <DetailRow label="Staatl. Unterstützung" value={dash(lead.staatl_unterstuetzung)} />
+                      <DetailRow label="Bewilligungsbescheid" value={dash(lead.bewilligungsbescheid)} />
+                      <DetailRow label="Genehmigungsschein abgegeben" value={yesNo(lead.genehmigungsschein_abgegeben)} />
+                      <DetailRow label="Genehmigungsdatum" value={dateFmt(lead.genehmigungsdatum)} />
+                      <DetailRow label="Erneute Genehmigung am" value={dateFmt(lead.erneute_genehmigung_am)} />
+                      <DetailRow label="Erneute abgegeben" value={yesNo(lead.erneute_abgegeben)} />
+                    </DetailGroup>
+
+                    <DetailGroup title="Meta">
+                      <DetailRow label="Sprache (Quelle)" value={dash(lead.lang)} />
+                      <DetailRow label="Familiensprache" value={dash(lead.sprache_familie)} />
+                      <DetailRow label="Quelle" value={dash(lead.source)} />
+                      <DetailRow label="Eingegangen" value={new Date(lead.created_at).toLocaleString('de-DE')} />
+                    </DetailGroup>
+
+                    {lead.anmerkungen && (
+                      <DetailGroup title="Anmerkungen">
+                        <p style={{ fontSize: '13px', color: '#334455', lineHeight: '1.6', margin: 0 }}>{lead.anmerkungen}</p>
+                      </DetailGroup>
+                    )}
+                  </div>
+                )}
 
                 {lkOpen && (
                   <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px', backgroundColor: '#F7F9FC', padding: '12px', borderRadius: '8px' }}>
