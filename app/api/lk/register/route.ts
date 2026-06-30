@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     const { data: existing, error: selectError } = await supabase
       .from('lehrkraefte')
       .select('id, aktiv')
-      .eq('email', email)
+      .ilike('email', email)
       .maybeSingle()
 
     if (selectError) {
