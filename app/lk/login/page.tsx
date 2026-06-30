@@ -17,6 +17,37 @@ export default function LkLoginPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
+
+    try {
+      const checkRes = await fetch('/api/lk/check-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const check = await checkRes.json()
+
+      if (check.status === 'not_registered') {
+        setError('Für diese E-Mail-Adresse existiert noch kein Lehrkraft-Konto. Bitte zuerst registrieren.')
+        setLoading(false)
+        return
+      }
+      if (check.status === 'pending') {
+        setError('Dein Zugang wartet noch auf die Freischaltung durch die Verwaltung. Du bekommst Bescheid, sobald es so weit ist.')
+        setLoading(false)
+        return
+      }
+      if (check.status === 'error' || check.status === 'invalid_email') {
+        setError('Es gab ein Problem bei der Prüfung. Bitte versuche es erneut.')
+        setLoading(false)
+        return
+      }
+      // status === 'active' -> weiter zum Magic Link
+    } catch {
+      setError('Verbindungsfehler. Bitte versuche es erneut.')
+      setLoading(false)
+      return
+    }
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: { emailRedirectTo: `${location.origin}/lk/auth/callback` },
