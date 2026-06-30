@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import AdminLeadList from './AdminLeadList'
 import PendingLks from './PendingLks'
 import LogoutButton from '../components/LogoutButton'
@@ -19,6 +20,20 @@ export default async function AdminPage() {
   )
 
   const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user || !user.email) {
+    redirect('/admin/login')
+  }
+
+  const { data: isAdmin } = await supabase
+    .from('admin_users')
+    .select('email')
+    .ilike('email', user.email.trim().toLowerCase())
+    .maybeSingle()
+
+  if (!isAdmin) {
+    redirect('/lk')
+  }
 
   const { data: leads } = await supabase
     .from('leads')
@@ -42,13 +57,16 @@ export default async function AdminPage() {
               Lern² Admin
             </h1>
             <p style={{ fontSize: '13px', color: '#8A9BAE' }}>
-              Eingeloggt als: {user?.email || 'unbekannt'}
+              Eingeloggt als: {user.email}
             </p>
           </div>
           <LogoutButton loginPath="/admin/login" />
         </div>
 
-        <a href="/api/admin/export" style={{ display: 'inline-block', marginBottom: '16px', padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>⬇️ Als CSV exportieren</a>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
+          <a href="/api/admin/export" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>⬇️ Leads als CSV</a>
+          <a href="/admin/termine" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>📅 Termine ansehen</a>
+        </div>
 
         <PendingLks initialPending={pendingLks || []} />
 
