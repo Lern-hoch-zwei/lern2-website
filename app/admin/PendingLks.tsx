@@ -25,7 +25,7 @@ export default function PendingLks({ initialPending }: { initialPending: Pending
       })
       const data = await res.json()
       if (!data.ok) {
-        setError('Freischalten fehlgeschlagen: ' + (data.error || 'unbekannter Fehler'))
+        setError('Freischalten fehlgeschlagen: ' + (data.error || 'unbekannter Fehler') + (data.debugEmail ? ' (geprüfte E-Mail: ' + data.debugEmail + ')' : ''))
         setSavingId(null)
         return
       }
