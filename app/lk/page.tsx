@@ -22,7 +22,7 @@ export default async function LkPage() {
   const { data: lehrkraft } = await supabase
     .from('lehrkraefte')
     .select('*')
-    .eq('email', user?.email)
+    .ilike('email', (user?.email || '').trim().toLowerCase())
     .maybeSingle()
 
   if (!lehrkraft) {
