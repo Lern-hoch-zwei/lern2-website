@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import LogoutButton from '../../components/LogoutButton'
 import InactivityLogout from '../../components/InactivityLogout'
 import AdminTermineList from './AdminTermineList'
@@ -19,6 +20,20 @@ export default async function AdminTerminePage() {
 
   const { data: { user } } = await supabase.auth.getUser()
 
+  if (!user || !user.email) {
+    redirect('/admin/login')
+  }
+
+  const { data: isAdmin } = await supabase
+    .from('admin_users')
+    .select('email')
+    .ilike('email', user.email.trim().toLowerCase())
+    .maybeSingle()
+
+  if (!isAdmin) {
+    redirect('/lk')
+  }
+
   const { data: termine } = await supabase
     .from('termine')
     .select('*, lehrkraefte(name, email)')
@@ -36,7 +51,7 @@ export default async function AdminTerminePage() {
               Lern² Termine
             </h1>
             <p style={{ fontSize: '13px', color: '#8A9BAE' }}>
-              Eingeloggt als: {user?.email || 'unbekannt'}
+              Eingeloggt als: {user.email}
             </p>
           </div>
           <LogoutButton loginPath="/admin/login" />
