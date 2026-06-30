@@ -16,18 +16,26 @@ export async function POST(request: Request) {
   )
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
+  if (!user || !user.email) {
     return NextResponse.json({ ok: false, error: 'not_logged_in' }, { status: 401 })
   }
 
-  const { data: isAdmin } = await supabase
+  const userEmail = user.email.trim().toLowerCase()
+
+  const { data: isAdmin, error: adminCheckError } = await supabase
     .from('admin_users')
     .select('email')
-    .eq('email', user.email)
+    .ilike('email', userEmail)
     .maybeSingle()
 
+  if (adminCheckError) {
+    console.error('lk-approve admin check error:', adminCheckError, 'for email:', userEmail)
+    return NextResponse.json({ ok: false, error: 'admin_check_failed: ' + adminCheckError.message }, { status: 500 })
+  }
+
   if (!isAdmin) {
-    return NextResponse.json({ ok: false, error: 'not_admin' }, { status: 403 })
+    console.error('lk-approve not_admin — kein admin_users-Treffer für:', userEmail)
+    return NextResponse.json({ ok: false, error: 'not_admin', debugEmail: userEmail }, { status: 403 })
   }
 
   const body = await request.json()
@@ -43,6 +51,7 @@ export async function POST(request: Request) {
     .eq('id', id)
 
   if (error) {
+    console.error('lk-approve update error:', error)
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 })
   }
 
