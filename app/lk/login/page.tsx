@@ -1,12 +1,23 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 
-export default function LkLoginPage() {
+function LkLoginForm() {
   const [email, setEmail] = useState(() => typeof window !== 'undefined' ? localStorage.getItem('lern2_lk_email') || '' : '')
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const errParam = searchParams.get('error')
+    if (errParam === 'expired_link') {
+      setError('Dieser Login-Link ist abgelaufen oder ungültig. Bitte fordere einen neuen an.')
+    } else if (errParam === 'missing_code') {
+      setError('Der Login-Link war unvollständig. Bitte fordere einen neuen an.')
+    }
+  }, [searchParams])
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -87,5 +98,13 @@ export default function LkLoginPage() {
         )}
       </div>
     </main>
+  )
+}
+
+export default function LkLoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LkLoginForm />
+    </Suspense>
   )
 }
