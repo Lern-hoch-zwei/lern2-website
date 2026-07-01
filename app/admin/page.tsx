@@ -66,6 +66,7 @@ export default async function AdminPage() {
         <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
           <a href="/api/admin/export" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>⬇️ Leads als CSV</a>
           <a href="/admin/termine" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>📅 Termine ansehen</a>
+          <a href="/admin/schueler" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>🎓 Schüler verwalten</a>
         </div>
 
         <PendingLks initialPending={pendingLks || []} />
