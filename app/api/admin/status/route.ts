@@ -16,8 +16,22 @@ export async function POST(request: Request) {
   )
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
+  if (!user || !user.email) {
     return NextResponse.json({ ok: false, error: 'not_logged_in' }, { status: 401 })
+  }
+
+  const { data: isAdmin, error: adminCheckError } = await supabase
+    .from('admin_users')
+    .select('email')
+    .ilike('email', user.email.trim().toLowerCase())
+    .maybeSingle()
+
+  if (adminCheckError) {
+    return NextResponse.json({ ok: false, error: 'admin_check_failed: ' + adminCheckError.message }, { status: 500 })
+  }
+
+  if (!isAdmin) {
+    return NextResponse.json({ ok: false, error: 'not_admin' }, { status: 403 })
   }
 
   const body = await request.json()
