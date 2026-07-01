@@ -45,6 +45,15 @@ type Body = {
 const cap = (v: any, max: number) =>
   v === null || v === undefined ? null : String(v).trim().slice(0, max) || null
 
+const esc = (v: any): string =>
+  v === null || v === undefined
+    ? ''
+    : String(v)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as Body
@@ -101,34 +110,34 @@ export async function POST(req: Request) {
     const html = `
       <h2>📥 Neue Anmeldung über die Website</h2>
       <p><strong>Eingegangen:</strong> ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}</p>
-      ${row.sprache_familie ? `<div style="background:#FFF8DC;border-left:4px solid #FFD60A;padding:12px 16px;margin:16px 0;border-radius:4px;"><strong>🌐 Familiensprache:</strong> ${row.sprache_familie}</div>` : ''}
+      ${row.sprache_familie ? `<div style="background:#FFF8DC;border-left:4px solid #FFD60A;padding:12px 16px;margin:16px 0;border-radius:4px;"><strong>🌐 Familiensprache:</strong> ${esc(row.sprache_familie)}</div>` : ''}
       <h3>👨‍👩‍👧 Eltern</h3>
       <ul>
-        <li><strong>Name:</strong> ${row.vorname_eltern} ${row.nachname_eltern}</li>
-        <li><strong>Telefon:</strong> ${row.telefon}</li>
-        <li><strong>E-Mail:</strong> ${row.email}</li>
-        <li><strong>Adresse:</strong> ${row.strasse || '—'}, ${row.plz_ort || '—'}</li>
+        <li><strong>Name:</strong> ${esc(row.vorname_eltern)} ${esc(row.nachname_eltern)}</li>
+        <li><strong>Telefon:</strong> ${esc(row.telefon)}</li>
+        <li><strong>E-Mail:</strong> ${esc(row.email)}</li>
+        <li><strong>Adresse:</strong> ${esc(row.strasse) || '—'}, ${esc(row.plz_ort) || '—'}</li>
       </ul>
       <h3>🧒 Kind</h3>
       <ul>
-        <li><strong>Name:</strong> ${row.vorname_kind || '—'} ${row.nachname_kind || ''}</li>
+        <li><strong>Name:</strong> ${esc(row.vorname_kind) || '—'} ${esc(row.nachname_kind) || ''}</li>
         <li><strong>Alter:</strong> ${row.alter_kind ?? '—'}</li>
-        <li><strong>Klasse:</strong> ${row.klassenstufe || '—'}</li>
-        <li><strong>Schule:</strong> ${row.schule || '—'}</li>
-        <li><strong>Fächer:</strong> ${row.faecher || '—'}</li>
-        <li><strong>Schwierigkeiten:</strong> ${row.schwierigkeiten || '—'}</li>
+        <li><strong>Klasse:</strong> ${esc(row.klassenstufe) || '—'}</li>
+        <li><strong>Schule:</strong> ${esc(row.schule) || '—'}</li>
+        <li><strong>Fächer:</strong> ${esc(row.faecher) || '—'}</li>
+        <li><strong>Schwierigkeiten:</strong> ${esc(row.schwierigkeiten) || '—'}</li>
       </ul>
       <h3>📅 Organisation</h3>
       <ul>
-        <li><strong>Unterrichtsform:</strong> ${row.unterrichtsform || '—'}</li>
-        <li><strong>Zeiten:</strong> ${row.zeiten || '—'}</li>
-        <li><strong>Staatliche Unterstützung:</strong> ${row.staatl_unterstuetzung || '—'}</li>
-        <li><strong>Bewilligungsbescheid:</strong> ${row.bewilligungsbescheid || '—'}</li>
-        <li><strong>Kommunikation:</strong> ${row.kommunikation || '—'}</li>
-        <li><strong>Anmerkungen:</strong> ${row.anmerkungen || '—'}</li>
+        <li><strong>Unterrichtsform:</strong> ${esc(row.unterrichtsform) || '—'}</li>
+        <li><strong>Zeiten:</strong> ${esc(row.zeiten) || '—'}</li>
+        <li><strong>Staatliche Unterstützung:</strong> ${esc(row.staatl_unterstuetzung) || '—'}</li>
+        <li><strong>Bewilligungsbescheid:</strong> ${esc(row.bewilligungsbescheid) || '—'}</li>
+        <li><strong>Kommunikation:</strong> ${esc(row.kommunikation) || '—'}</li>
+        <li><strong>Anmerkungen:</strong> ${esc(row.anmerkungen) || '—'}</li>
       </ul>
       <p style="margin-top:24px;color:#888;font-size:12px">
-        Diese Nachricht wurde automatisch von lern2.com generiert. Antworten Sie der Familie direkt unter ${row.telefon} oder ${row.email}.
+        Diese Nachricht wurde automatisch von lern2.com generiert. Antworten Sie der Familie direkt unter ${esc(row.telefon)} oder ${esc(row.email)}.
       </p>
     `
 
