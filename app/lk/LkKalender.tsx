@@ -39,25 +39,32 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
   const [saving, setSaving] = useState(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [form, setForm] = useState({ schueler_name: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
+  const [statusError, setStatusError] = useState<string | null>(null)
 
   const addTermin = async () => {
     if (!form.schueler_name || !form.datum || !form.uhrzeit) return
     setSaving(true)
-    const res = await fetch('/api/lk/termin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...form, lehrkraft_id: lehrkraftId, dauer_minuten: parseInt(form.dauer_minuten, 10) }),
-    })
-    const data = await res.json()
-    setSaving(false)
-    if (data.ok && data.termin) {
-      setTermine([data.termin, ...termine])
-      setForm({ schueler_name: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
-      setShowForm(false)
+    setStatusError(null)
+    try {
+      const res = await fetch('/api/lk/termin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, lehrkraft_id: lehrkraftId, dauer_minuten: parseInt(form.dauer_minuten, 10) }),
+      })
+      const data = await res.json()
+      setSaving(false)
+      if (data.ok && data.termin) {
+        setTermine([data.termin, ...termine])
+        setForm({ schueler_name: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
+        setShowForm(false)
+      } else {
+        setStatusError('Termin konnte nicht gespeichert werden. Bitte erneut versuchen.')
+      }
+    } catch {
+      setSaving(false)
+      setStatusError('Verbindungsfehler. Termin wurde nicht gespeichert.')
     }
   }
-
-  const [statusError, setStatusError] = useState<string | null>(null)
 
   const updateStatus = async (id: string, status: string) => {
     const previous = termine.find(t => t.id === id)?.status
@@ -83,15 +90,23 @@ export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftI
   const deleteTermin = async (id: string) => {
     if (!confirm('Diesen Termin wirklich löschen?')) return
     setDeletingId(id)
-    const res = await fetch('/api/lk/termin', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
-    })
-    const data = await res.json()
-    setDeletingId(null)
-    if (data.ok) {
-      setTermine(termine.filter(t => t.id !== id))
+    setStatusError(null)
+    try {
+      const res = await fetch('/api/lk/termin', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      })
+      const data = await res.json()
+      setDeletingId(null)
+      if (data.ok) {
+        setTermine(termine.filter(t => t.id !== id))
+      } else {
+        setStatusError('Termin konnte nicht gelöscht werden. Bitte erneut versuchen.')
+      }
+    } catch {
+      setDeletingId(null)
+      setStatusError('Verbindungsfehler. Termin wurde nicht gelöscht.')
     }
   }
 
