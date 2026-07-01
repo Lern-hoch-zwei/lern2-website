@@ -70,6 +70,12 @@ export default async function LkPage() {
     .order('uhrzeit', { ascending: false })
     .limit(100)
 
+  // RLS "lk_own_schueler" filtert automatisch auf die diesem LK zugewiesenen Schüler
+  const { data: zugewieseneSchueler } = await supabase
+    .from('schueler')
+    .select('id, vorname, nachname')
+    .order('vorname', { ascending: true })
+
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '24px' }}>
       <InactivityLogout loginPath="/lk/login" />
@@ -86,7 +92,7 @@ export default async function LkPage() {
           <LogoutButton loginPath="/lk/login" />
         </div>
 
-        <LkKalender lehrkraftId={lehrkraft.id} initialTermine={termine || []} />
+        <LkKalender lehrkraftId={lehrkraft.id} initialTermine={termine || []} zugewieseneSchueler={zugewieseneSchueler || []} />
       </div>
     </main>
   )
