@@ -63,13 +63,40 @@ const dash = (v: any) => (v === null || v === undefined || v === '' ? '—' : St
 const yesNo = (v: any) => (v === true ? 'Ja' : v === false ? 'Nein' : '—')
 const dateFmt = (v?: string) => (v ? new Date(v).toLocaleDateString('de-DE') : '—')
 
-export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }) {
+export default function AdminLeadList({ initialLeads, konvertierteLeadIds }: { initialLeads: Lead[]; konvertierteLeadIds: string[] }) {
   const [leads, setLeads] = useState(initialLeads)
+  const [konvertiert, setKonvertiert] = useState<Set<string>>(new Set(konvertierteLeadIds))
+  const [konvertierenId, setKonvertierenId] = useState<string | null>(null)
+  const [konvertierenError, setKonvertierenError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [savingId, setSavingId] = useState<string | null>(null)
   const [openPanelId, setOpenPanelId] = useState<{ id: string; panel: 'notiz' | 'lk' | 'details' } | null>(null)
   const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({})
   const [lkDrafts, setLkDrafts] = useState<Record<string, { lk1: string; lk2: string; lk3: string }>>({})
+
+  const zuSchuelerMachen = async (id: string) => {
+    setKonvertierenId(id)
+    setKonvertierenError(null)
+    try {
+      const res = await fetch('/api/admin/lead-to-schueler', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lead_id: id }),
+      })
+      const data = await res.json()
+      if (data.ok) {
+        setKonvertiert(new Set(Array.from(konvertiert).concat([id])))
+        setLeads(leads.map(l => l.id === id ? { ...l, status: 'im_unterricht' } : l))
+      } else if (data.error === 'bereits_konvertiert') {
+        setKonvertiert(new Set(Array.from(konvertiert).concat([id])))
+      } else {
+        setKonvertierenError('Umwandeln fehlgeschlagen: ' + (data.error || 'unbekannter Fehler'))
+      }
+    } catch {
+      setKonvertierenError('Verbindungsfehler beim Umwandeln.')
+    }
+    setKonvertierenId(null)
+  }
 
   const updateField = async (id: string, fields: Record<string, any>) => {
     setSavingId(id)
@@ -132,6 +159,12 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
 
   return (
     <div>
+      {konvertierenError && (
+        <div style={{ marginBottom: '12px', padding: '10px 14px', backgroundColor: '#FFF5F5', border: '1px solid #FECACA', borderRadius: '8px', fontSize: '13px', color: '#B91C1C' }}>
+          {konvertierenError}
+        </div>
+      )}
+
       <input
         type="text"
         placeholder="Suchen nach Name, Telefon, Fach, Schule, LK..."
@@ -218,6 +251,26 @@ export default function AdminLeadList({ initialLeads }: { initialLeads: Lead[] }
                       }}>
                       📝 Notiz
                     </button>
+                    {konvertiert.has(lead.id) ? (
+                      <span style={{
+                        padding: '6px 10px', borderRadius: '6px', border: '1px solid #D6E4FF',
+                        backgroundColor: '#EAFBF3', color: '#1D9E75', fontSize: '12px', fontWeight: '700',
+                      }}>
+                        ✓ Schüler angelegt
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => zuSchuelerMachen(lead.id)}
+                        disabled={konvertierenId === lead.id}
+                        style={{
+                          padding: '6px 10px', borderRadius: '6px', border: '1px solid #FFD60A',
+                          backgroundColor: '#FFD60A', color: '#0F2A45',
+                          fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: "'Inter', sans-serif",
+                          opacity: konvertierenId === lead.id ? 0.6 : 1,
+                        }}>
+                        {konvertierenId === lead.id ? '...' : '🎓 → Schüler anlegen'}
+                      </button>
+                    )}
                   </div>
                 </div>
 
