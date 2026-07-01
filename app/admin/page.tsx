@@ -47,6 +47,13 @@ export default async function AdminPage() {
     .eq('aktiv', false)
     .order('created_at', { ascending: false })
 
+  const { data: konvertierteSchueler } = await supabase
+    .from('schueler')
+    .select('lead_id')
+    .not('lead_id', 'is', null)
+
+  const konvertierteLeadIds = (konvertierteSchueler || []).map(s => s.lead_id)
+
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '24px' }}>
       <InactivityLogout loginPath="/admin/login" />
@@ -71,7 +78,7 @@ export default async function AdminPage() {
 
         <PendingLks initialPending={pendingLks || []} />
 
-        <AdminLeadList initialLeads={leads || []} />
+        <AdminLeadList initialLeads={leads || []} konvertierteLeadIds={konvertierteLeadIds} />
       </div>
     </main>
   )
