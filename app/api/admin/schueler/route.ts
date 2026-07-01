@@ -41,7 +41,13 @@ export async function POST(request: Request) {
   if (authError) return authError
 
   const body = await request.json()
-  const { vorname, nachname, geburtsdatum, eltern_name, eltern_telefon, eltern_email, klassenstufe, schule, faecher, but_bewilligt, but_bescheid_bis, lead_id } = body
+  const {
+    vorname, nachname, geburtsdatum, eltern_name, eltern_telefon, eltern_email,
+    klassenstufe, schule, faecher, but_bewilligt, but_bescheid_bis, lead_id,
+    vorname_eltern, nachname_eltern, strasse, plz_ort, alter_kind,
+    schwierigkeiten, unterrichtsform, zeiten, staatl_unterstuetzung,
+    bewilligungsbescheid, anmerkungen, kommunikation, sprache_familie, notizen,
+  } = body
 
   if (!vorname || !nachname) {
     return NextResponse.json({ ok: false, error: 'missing_fields' }, { status: 400 })
@@ -61,6 +67,20 @@ export async function POST(request: Request) {
       but_bewilligt: !!but_bewilligt,
       but_bescheid_bis: but_bescheid_bis || null,
       lead_id: lead_id || null,
+      vorname_eltern: vorname_eltern || null,
+      nachname_eltern: nachname_eltern || null,
+      strasse: strasse || null,
+      plz_ort: plz_ort || null,
+      alter_kind: alter_kind || null,
+      schwierigkeiten: schwierigkeiten || null,
+      unterrichtsform: unterrichtsform || null,
+      zeiten: zeiten || null,
+      staatl_unterstuetzung: staatl_unterstuetzung || null,
+      bewilligungsbescheid: bewilligungsbescheid || null,
+      anmerkungen: anmerkungen || null,
+      kommunikation: kommunikation || null,
+      sprache_familie: sprache_familie || null,
+      notizen: notizen || null,
     })
     .select()
     .single()
@@ -84,7 +104,13 @@ export async function PATCH(request: Request) {
   }
 
   const updateData: Record<string, any> = { updated_at: new Date().toISOString() }
-  const allowed = ['vorname', 'nachname', 'geburtsdatum', 'eltern_name', 'eltern_telefon', 'eltern_email', 'klassenstufe', 'schule', 'faecher', 'status', 'but_bewilligt', 'but_bescheid_bis']
+  const allowed = [
+    'vorname', 'nachname', 'geburtsdatum', 'eltern_name', 'eltern_telefon', 'eltern_email',
+    'klassenstufe', 'schule', 'faecher', 'status', 'but_bewilligt', 'but_bescheid_bis',
+    'vorname_eltern', 'nachname_eltern', 'strasse', 'plz_ort', 'alter_kind',
+    'schwierigkeiten', 'unterrichtsform', 'zeiten', 'staatl_unterstuetzung',
+    'bewilligungsbescheid', 'anmerkungen', 'kommunikation', 'sprache_familie', 'notizen',
+  ]
   for (const key of allowed) {
     if (fields[key] !== undefined) updateData[key] = fields[key]
   }
