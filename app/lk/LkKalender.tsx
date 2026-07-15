@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 type Termin = {
   id: string
-  schueler_id?: string | null
   schueler_name: string
   fach?: string
   datum: string
@@ -12,8 +11,6 @@ type Termin = {
   status: string
   notizen?: string
 }
-
-type Schueler = { id: string; vorname: string; nachname: string }
 
 const STATUS_OPTIONS = [
   { value: 'geplant', label: 'Geplant', color: '#3A86FF' },
@@ -36,46 +33,31 @@ const selectStyle = {
   backgroundRepeat: 'no-repeat' as const, backgroundPosition: 'right 10px center', backgroundSize: '12px',
 }
 
-export default function LkKalender({ lehrkraftId, initialTermine, zugewieseneSchueler }: { lehrkraftId: string; initialTermine: Termin[]; zugewieseneSchueler: Schueler[] }) {
+export default function LkKalender({ lehrkraftId, initialTermine }: { lehrkraftId: string; initialTermine: Termin[] }) {
   const [termine, setTermine] = useState(initialTermine)
   const [showForm, setShowForm] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
-  const [form, setForm] = useState({ schueler_id: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
-  const [statusError, setStatusError] = useState<string | null>(null)
+  const [form, setForm] = useState({ schueler_name: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
 
   const addTermin = async () => {
-    const gewaehlterSchueler = zugewieseneSchueler.find(s => s.id === form.schueler_id)
-    if (!gewaehlterSchueler || !form.datum || !form.uhrzeit) return
+    if (!form.schueler_name || !form.datum || !form.uhrzeit) return
     setSaving(true)
-    setStatusError(null)
-    try {
-      const res = await fetch('/api/lk/termin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          lehrkraft_id: lehrkraftId,
-          schueler_name: `${gewaehlterSchueler.vorname} ${gewaehlterSchueler.nachname}`.trim(),
-          dauer_minuten: parseInt(form.dauer_minuten, 10),
-        }),
-      })
-      const data = await res.json()
-      setSaving(false)
-      if (data.ok && data.termin) {
-        setTermine([data.termin, ...termine])
-        setForm({ schueler_id: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
-        setShowForm(false)
-      } else if (data.error === 'schueler_nicht_zugewiesen') {
-        setStatusError('Dieser Schüler ist dir nicht zugewiesen. Bitte die Admin-Verwaltung kontaktieren.')
-      } else {
-        setStatusError('Termin konnte nicht gespeichert werden. Bitte erneut versuchen.')
-      }
-    } catch {
-      setSaving(false)
-      setStatusError('Verbindungsfehler. Termin wurde nicht gespeichert.')
+    const res = await fetch('/api/lk/termin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...form, lehrkraft_id: lehrkraftId, dauer_minuten: parseInt(form.dauer_minuten, 10) }),
+    })
+    const data = await res.json()
+    setSaving(false)
+    if (data.ok && data.termin) {
+      setTermine([data.termin, ...termine])
+      setForm({ schueler_name: '', fach: '', datum: '', uhrzeit: '', dauer_minuten: '90' })
+      setShowForm(false)
     }
   }
+
+  const [statusError, setStatusError] = useState<string | null>(null)
 
   const updateStatus = async (id: string, status: string) => {
     const previous = termine.find(t => t.id === id)?.status
@@ -101,23 +83,15 @@ export default function LkKalender({ lehrkraftId, initialTermine, zugewieseneSch
   const deleteTermin = async (id: string) => {
     if (!confirm('Diesen Termin wirklich löschen?')) return
     setDeletingId(id)
-    setStatusError(null)
-    try {
-      const res = await fetch('/api/lk/termin', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }),
-      })
-      const data = await res.json()
-      setDeletingId(null)
-      if (data.ok) {
-        setTermine(termine.filter(t => t.id !== id))
-      } else {
-        setStatusError('Termin konnte nicht gelöscht werden. Bitte erneut versuchen.')
-      }
-    } catch {
-      setDeletingId(null)
-      setStatusError('Verbindungsfehler. Termin wurde nicht gelöscht.')
+    const res = await fetch('/api/lk/termin', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    })
+    const data = await res.json()
+    setDeletingId(null)
+    if (data.ok) {
+      setTermine(termine.filter(t => t.id !== id))
     }
   }
 
@@ -131,24 +105,8 @@ export default function LkKalender({ lehrkraftId, initialTermine, zugewieseneSch
 
       {showForm && (
         <div style={{ backgroundColor: '#fff', border: '1px solid #D6E4FF', borderRadius: '12px', padding: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {zugewieseneSchueler.length > 0 ? (
-            <>
-              <select value={form.schueler_id}
-                onChange={(e) => setForm({ ...form, schueler_id: e.target.value })} style={selectStyle}>
-                <option value="">Schüler wählen...</option>
-                {zugewieseneSchueler.map(s => (
-                  <option key={s.id} value={s.id}>{s.vorname} {s.nachname}</option>
-                ))}
-              </select>
-              {!form.schueler_id && (
-                <p style={{ fontSize: '12px', color: '#B91C1C', margin: 0 }}>Bitte einen Schüler auswählen.</p>
-              )}
-            </>
-          ) : (
-            <p style={{ fontSize: '13px', color: '#B91C1C', margin: 0, padding: '10px', backgroundColor: '#FFF5F5', borderRadius: '8px' }}>
-              Dir sind noch keine Schüler zugewiesen. Bitte die Admin-Verwaltung kontaktieren.
-            </p>
-          )}
+          <input placeholder="Name des Schülers" value={form.schueler_name}
+            onChange={(e) => setForm({ ...form, schueler_name: e.target.value })} style={inputStyle} />
           <input placeholder="Fach (optional)" value={form.fach}
             onChange={(e) => setForm({ ...form, fach: e.target.value })} style={inputStyle} />
           <div style={{ display: 'flex', gap: '10px' }}>
@@ -163,12 +121,8 @@ export default function LkKalender({ lehrkraftId, initialTermine, zugewieseneSch
               <option value="120">120 Min</option>
             </select>
           </div>
-          <button onClick={addTermin} disabled={saving || !form.schueler_id || !form.datum || !form.uhrzeit}
-            style={{
-              backgroundColor: (!form.schueler_id || !form.datum || !form.uhrzeit) ? '#D6E4FF' : '#0F2A45',
-              color: '#fff', padding: '10px', borderRadius: '8px', border: 'none', fontWeight: '700', fontSize: '14px',
-              cursor: (!form.schueler_id || !form.datum || !form.uhrzeit) ? 'not-allowed' : 'pointer', fontFamily: "'Inter', sans-serif",
-            }}>
+          <button onClick={addTermin} disabled={saving}
+            style={{ backgroundColor: '#0F2A45', color: '#fff', padding: '10px', borderRadius: '8px', border: 'none', fontWeight: '700', fontSize: '14px', cursor: 'pointer', fontFamily: "'Inter', sans-serif" }}>
             {saving ? 'Speichert...' : 'Termin speichern'}
           </button>
         </div>
