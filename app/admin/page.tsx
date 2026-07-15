@@ -47,13 +47,6 @@ export default async function AdminPage() {
     .eq('aktiv', false)
     .order('created_at', { ascending: false })
 
-  const { data: konvertierteSchueler } = await supabase
-    .from('schueler')
-    .select('lead_id')
-    .not('lead_id', 'is', null)
-
-  const konvertierteLeadIds = (konvertierteSchueler || []).map(s => s.lead_id)
-
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#F7F9FC', fontFamily: "'Inter', sans-serif", padding: '24px' }}>
       <InactivityLogout loginPath="/admin/login" />
@@ -73,12 +66,11 @@ export default async function AdminPage() {
         <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
           <a href="/api/admin/export" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>⬇️ Leads als CSV</a>
           <a href="/admin/termine" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>📅 Termine ansehen</a>
-          <a href="/admin/schueler" style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #D6E4FF', color: '#3A86FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>🎓 Schüler verwalten</a>
         </div>
 
         <PendingLks initialPending={pendingLks || []} />
 
-        <AdminLeadList initialLeads={leads || []} konvertierteLeadIds={konvertierteLeadIds} />
+        <AdminLeadList initialLeads={leads || []} />
       </div>
     </main>
   )
